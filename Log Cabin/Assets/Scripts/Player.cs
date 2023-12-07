@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class Player : MonoBehaviour
 {
@@ -10,10 +11,19 @@ public class Player : MonoBehaviour
     public float speed = 5f; 
     public float turnSpeed = 5f;
 
+    public int woodCount = 0;
+
+    public TextMeshProUGUI woodCountText;
+
+    public TextMeshProUGUI pickUpText;
+
+    public List<UnityEngine.Collider> overlappingColliders = new List<UnityEngine.Collider>();
+
     // Start is called before the first frame update
     void Start(){
         Rigidbody rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
+        pickUpText.enabled = false;
     }
 
     // Update is called once per frame
@@ -24,10 +34,24 @@ public class Player : MonoBehaviour
         float horizontalInput = Input.GetAxis("Horizontal");
         float turn = horizontalInput * turnSpeed * Time.deltaTime;
 
+        MovePlayerHandler();
+        pickUpWoodHandler();
+
+        woodCountText.text = "Wood Count: " + woodCount.ToString() +  " Logs";
+
+        Rigidbody rb = GetComponent<Rigidbody>();
+        //rb.MovePosition(transform.forward * speed * Time.deltaTime * verticalInput);
+        rb.MovePosition(transform.forward * Time.deltaTime * speed * verticalInput + transform.position);
+        transform.Rotate(0, turn, 0);
+
+    }
+
+    void MovePlayerHandler(){
 
         if (Input.GetKey ("up")){
             //Movement input
             animation_controller.SetBool("is_walking", true);
+            animation_controller.SetBool("is_walking_backward", false);
             Debug.Log("walking");
         }
 
@@ -49,45 +73,58 @@ public class Player : MonoBehaviour
 
         if (Input.GetKey ("right")){
             //Movement input
-            animation_controller.SetBool("is_turning_left", false);
             animation_controller.SetBool("is_turning_right", true);
+            animation_controller.SetBool("is_turning_left", false);
             animation_controller.SetBool("is_walking", false);
-            Debug.Log("turning true");
+            Debug.Log("turning right");
         }
-        
+
         else {
             animation_controller.SetBool("is_turning_right", false);
         }
 
-        Rigidbody rb = GetComponent<Rigidbody>();
-        //rb.MovePosition(transform.forward * speed * Time.deltaTime * verticalInput);
-        rb.MovePosition(transform.forward * Time.deltaTime * speed * verticalInput + transform.position);
-        transform.Rotate(0, turn, 0);
-    }
 
-    void MovePlayer(Vector3 direction){
-
-            // Get the Rigidbody component attached to the GameObject
-            Rigidbody rb = GetComponent<Rigidbody>();
-
-            Vector3 newPosition = rb.position + (direction * speed * Time.deltaTime);
-
-            //newPosition.y = Mathf.Clamp(newPosition.y, 0f, 7.6f);
-
-            // Apply movement to the Rigidbody
-            rb.MovePosition(newPosition);
-    }
-
-    /*void RotatePlayer(float turn){
-
-    // Get the Rigidbody component attached to the GameObject
-        Rigidbody rb = GetComponent<Rigidbody>();
-
-        // Calculate rotation
-        Quaternion turnRotation = Quaternion.Euler(0f, turn, 0f);
-
-        // Apply rotation to the Rigidbody
-        rb.MoveRotation(rb.rotation * turnRotation);
+        if (Input.GetKey ("down")){
+            //Movement input
+            animation_controller.SetBool("is_turning_left", false);
+            animation_controller.SetBool("is_turning_right", true);
+            animation_controller.SetBool("is_walking", false);
+            animation_controller.SetBool("is_walking_backward", true);
+            Debug.Log("turning true");
         }
-        */
+        
+        else {
+            animation_controller.SetBool("is_walking_backward", false);
+        }
+    }
+
+    //Handles picking up wood based on if there's anything overlapping (for now, just wood)
+    void pickUpWoodHandler() {
+        if (overlappingColliders.Count > 0){
+
+            pickUpText.enabled = true;
+
+            if (Input.GetKey ("p")){
+                animation_controller.SetTrigger("is_picking_up");
+                Destroy(overlappingColliders[0].gameObject);
+                overlappingColliders.RemoveAt(0);
+                woodCount += 1;
+                Debug.Log("Wood count: " + woodCount);
+                animation_controller.SetTrigger("done_picking_up");
+            }
+        }
+        else {
+            pickUpText.enabled = false;
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        overlappingColliders.Add(other);
+    }
+
+    private void onTriggerExit(Collider other){
+        overlappingColliders.Remove(other);
+    }
+
 }
