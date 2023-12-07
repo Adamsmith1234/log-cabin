@@ -52,7 +52,7 @@ public class Player : MonoBehaviour
             //Movement input
             animation_controller.SetBool("is_walking", true);
             animation_controller.SetBool("is_walking_backward", false);
-            Debug.Log("walking");
+            //Debug.Log("walking");
         }
 
         else {
@@ -64,7 +64,7 @@ public class Player : MonoBehaviour
             animation_controller.SetBool("is_turning_left", true);
             animation_controller.SetBool("is_turning_right", false);
             animation_controller.SetBool("is_walking", false);
-            Debug.Log("turning left");
+            //Debug.Log("turning left");
         }
 
         else {
@@ -76,7 +76,7 @@ public class Player : MonoBehaviour
             animation_controller.SetBool("is_turning_right", true);
             animation_controller.SetBool("is_turning_left", false);
             animation_controller.SetBool("is_walking", false);
-            Debug.Log("turning right");
+            //Debug.Log("turning right");
         }
 
         else {
@@ -90,7 +90,7 @@ public class Player : MonoBehaviour
             animation_controller.SetBool("is_turning_right", true);
             animation_controller.SetBool("is_walking", false);
             animation_controller.SetBool("is_walking_backward", true);
-            Debug.Log("turning true");
+            //Debug.Log("turning true");
         }
         
         else {
@@ -100,6 +100,9 @@ public class Player : MonoBehaviour
 
     //Handles picking up wood based on if there's anything overlapping (for now, just wood)
     void pickUpWoodHandler() {
+
+        //Debug.Log(overlappingColliders.Count);
+
         if (overlappingColliders.Count > 0){
 
             pickUpText.enabled = true;
@@ -120,10 +123,12 @@ public class Player : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        //Debug.Log("ENTERING");
         overlappingColliders.Add(other);
     }
 
-    private void onTriggerExit(Collider other){
+    private void OnTriggerExit(Collider other){
+        //Debug.Log("EXITING");
         overlappingColliders.Remove(other);
     }
 

@@ -14,7 +14,9 @@ public class fireScript : MonoBehaviour
 
     public bool flamesOn;
 
-    public Component[] children;
+    private bool hasPlacedWood = false;
+
+    public Component[] particleSystems;
 
     public TextMeshProUGUI fireSizeText;
 
@@ -33,7 +35,7 @@ public class fireScript : MonoBehaviour
 
         flamesOn = true;
 
-        children = GetComponentsInChildren<ParticleSystem>(); //Child particle systems
+        particleSystems = GetComponentsInChildren<ParticleSystem>(); //Child particle systems
         
     }
 
@@ -49,26 +51,19 @@ public class fireScript : MonoBehaviour
 
         fireSizeText.text = "Fire Size: " + string.Format("{0:N2}", main.duration) + " Units";
 
+        Debug.Log(main.duration);
 
-        
+        if (Input.GetKeyDown("space")){
+            if (player.GetComponent<Player>().woodCount > 0 && !hasPlacedWood){
 
-        if (Input.GetKey ("space")){
-            if (player.GetComponent<Player>().woodCount > 0){
-
-                mainFlamesSystem.Stop(); // Cannot set duration whilst particle system is playing
-                mainFlamesSystem.Clear(); // Clears it out entirely so we can actually change stuff
-
-                main.duration = 2.0f; // our new desired duration
-
-                main.startLifetime = main.duration; //need to change this or else it'll still be between .8 and 1
-        
-                mainFlamesSystem.Play(); //restart the playing of the particle system
+                hasPlacedWood = true;
 
                 //This goes through and applies this to each of it's children
-                foreach (ParticleSystem childParticleSystem in children){
+                foreach (ParticleSystem childParticleSystem in particleSystems){
                     childParticleSystem.Stop(); 
+                    childParticleSystem.Clear();
                     var childMain = childParticleSystem.main;
-                    childMain.duration = 2.0f;
+                    childMain.duration += 1;
                     childMain.startLifetime = childMain.duration;
 
 			        childParticleSystem.Play();
@@ -82,6 +77,42 @@ public class fireScript : MonoBehaviour
                 player.GetComponent<Player>().woodCount -= 1;
             }
         }
+
+        else {
+            hasPlacedWood = false;
+        }
         
     }
+
+    /*void PlaceWoodHandler()
+    {
+        if (player.GetComponent<Player>().woodCount > 0 && !hasPlacedWood)
+        {
+            hasPlacedWood = true;
+
+            var main = mainFlamesSystem.main;
+
+            mainFlamesSystem.Stop();
+            mainFlamesSystem.Clear();
+            main.duration += 1;
+            main.startLifetime = main.duration;
+            mainFlamesSystem.Play();
+
+            foreach (ParticleSystem childParticleSystem in children)
+            {
+                childParticleSystem.Stop();
+                var childMain = childParticleSystem.main;
+                childMain.duration += 1;
+                childMain.startLifetime = childMain.duration;
+                childParticleSystem.Play();
+            }
+
+            player.GetComponent<Animator>().SetTrigger("is_picking_up");
+            player.GetComponent<Animator>().SetTrigger("done_picking_up");
+
+            Debug.Log("Added to fire");
+            player.GetComponent<Player>().woodCount -= 1;
+        }
+    }
+    */
 }
