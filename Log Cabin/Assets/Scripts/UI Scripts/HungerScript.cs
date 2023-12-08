@@ -4,5 +4,8 @@ using UnityEngine;
 
 public class HungerScript : MonoBehaviour
 {
-    public void updateSystem() {}
+    public BarGauge stomach;
+    public void updateSystem() {
+        stomach.percentFilled = 1f;
+    }
 }

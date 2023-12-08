@@ -4,5 +4,8 @@ using UnityEngine;
 
 public class FireScript : MonoBehaviour
 {
-    public void updateSystem() {}
+    public BarGauge heat;
+    public void updateSystem() {
+        heat.percentFilled = 1f;
+    }
 }
