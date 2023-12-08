@@ -432,15 +432,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 730167905690518293, guid: 02f8663be0114104e98cc2d8ef07adb3, type: 3}
       propertyPath: m_Color.b
-      value: 0.1670345
+      value: 0.19935915
       objectReference: {fileID: 0}
     - target: {fileID: 730167905690518293, guid: 02f8663be0114104e98cc2d8ef07adb3, type: 3}
       propertyPath: m_Color.g
-      value: 0.1670345
+      value: 0.19935915
       objectReference: {fileID: 0}
     - target: {fileID: 730167905690518293, guid: 02f8663be0114104e98cc2d8ef07adb3, type: 3}
       propertyPath: m_Color.r
-      value: 0.9622642
+      value: 0.9433962
       objectReference: {fileID: 0}
     - target: {fileID: 2940560906347450008, guid: 02f8663be0114104e98cc2d8ef07adb3, type: 3}
       propertyPath: m_Pivot.x
@@ -532,15 +532,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4127506108527415996, guid: 02f8663be0114104e98cc2d8ef07adb3, type: 3}
       propertyPath: meterColor.b
-      value: 0.1670345
+      value: 0.19935915
       objectReference: {fileID: 0}
     - target: {fileID: 4127506108527415996, guid: 02f8663be0114104e98cc2d8ef07adb3, type: 3}
       propertyPath: meterColor.g
-      value: 0.1670345
+      value: 0.19935915
       objectReference: {fileID: 0}
     - target: {fileID: 4127506108527415996, guid: 02f8663be0114104e98cc2d8ef07adb3, type: 3}
       propertyPath: meterColor.r
-      value: 0.9622642
+      value: 0.9433962
       objectReference: {fileID: 0}
     - target: {fileID: 4127506108527415996, guid: 02f8663be0114104e98cc2d8ef07adb3, type: 3}
       propertyPath: percentFilled
@@ -548,7 +548,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4127506108527415996, guid: 02f8663be0114104e98cc2d8ef07adb3, type: 3}
       propertyPath: _percentFilled
-      value: 0.544
+      value: 0.515
       objectReference: {fileID: 0}
     - target: {fileID: 4127506108527415996, guid: 02f8663be0114104e98cc2d8ef07adb3, type: 3}
       propertyPath: m_percentFilled
@@ -564,7 +564,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6727890806816937945, guid: 02f8663be0114104e98cc2d8ef07adb3, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 107.712006
+      value: 101.96999
       objectReference: {fileID: 0}
     - target: {fileID: 6727890806816937945, guid: 02f8663be0114104e98cc2d8ef07adb3, type: 3}
       propertyPath: m_SizeDelta.y
