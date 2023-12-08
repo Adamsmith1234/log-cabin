@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using System.Numerics;
 
 public class Player : MonoBehaviour
 {
@@ -17,6 +18,20 @@ public class Player : MonoBehaviour
 
     public TextMeshProUGUI pickUpText;
 
+    public TextMeshProUGUI centerOfScreenPlaceholder;
+
+    public TextMeshProUGUI normalBookPositionPlaceholder;
+
+    public GameObject book;
+
+    public Camera viewportCamera;
+
+    public bool isBookLarge = false;
+
+    public UnityEngine.Vector3 normalBookScale;
+
+    
+
     public List<UnityEngine.Collider> overlappingColliders = new List<UnityEngine.Collider>();
 
     // Start is called before the first frame update
@@ -24,6 +39,8 @@ public class Player : MonoBehaviour
         Rigidbody rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
         pickUpText.enabled = false;
+        isBookLarge = false;
+        normalBookScale = book.transform.localScale;
     }
 
     // Update is called once per frame
@@ -91,6 +108,47 @@ public class Player : MonoBehaviour
             animation_controller.SetBool("is_walking", false);
             animation_controller.SetBool("is_walking_backward", true);
             //Debug.Log("turning true");
+        }
+
+        if (Input.GetKeyDown("b")){
+
+            if (isBookLarge){
+                book.transform.position = normalBookPositionPlaceholder.transform.position;
+
+                book.transform.localScale = normalBookScale;
+
+                isBookLarge = false;
+            }
+
+            else {
+                book.transform.position = centerOfScreenPlaceholder.transform.position;
+                
+                book.transform.localScale = new UnityEngine.Vector3 (100, 100, 9);
+
+                isBookLarge = true;
+            }
+
+
+            //int x = (viewportCamera.pixelWidth / 2);
+            //int y = (viewportCamera.pixelHeight / 2);
+
+            // Convert screen coordinates to world coordinates
+            //Vector3 bookPosition = viewportCamera.ScreenToWorldPoint(new Vector3(x, y, -7));
+
+            // Set the book's position
+
+
+
+            Debug.Log("New book position: " + book.transform.position);
+
+
+            /*if (book.activeSelf == true) {
+                book.SetActive(false); 
+            }
+            else {
+                book.SetActive(true); 
+            }
+            */
         }
         
         else {
