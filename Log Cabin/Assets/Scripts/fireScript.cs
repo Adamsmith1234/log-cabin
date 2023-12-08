@@ -51,7 +51,7 @@ public class fireScript : MonoBehaviour
 
         fireSizeText.text = "Fire Size: " + string.Format("{0:N2}", main.duration) + " Units";
 
-        Debug.Log(main.duration);
+        //Debug.Log(main.duration);
 
         if (Input.GetKeyDown("space")){
             if (player.GetComponent<Player>().woodCount > 0 && !hasPlacedWood){
