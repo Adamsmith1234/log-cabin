@@ -30,6 +30,7 @@ public class FireScript : MonoBehaviour
         get {return _heat;}
         set {_heat = Mathf.Clamp(value,0f,1000f);}
     }
+    public GameObject campfire;
     private float _heat = 0;
     private float heatLoss = .3f;
     private float[] fuelSizes = new float[] {1f,2f,4f,6f,10f};
@@ -55,6 +56,7 @@ public class FireScript : MonoBehaviour
         heat -= heatLoss * deltaTime;
         //Debug.Log("Fire size: "+fireSize.ToString("0.00")+" Heat: "+heat.ToString("0.00"));
         heatBar.percentFilled = heat/(firePitCapacity*2);
+        campfire.GetComponent<CampfireScript>().updateParticles(heat,fireSize);
     }
 
     public void addFuel(fuels fuelType) {

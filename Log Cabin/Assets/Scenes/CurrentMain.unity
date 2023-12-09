@@ -5279,6 +5279,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5440707293445741943, guid: 494f6d43e170e9145bc7865d243ee00b, type: 3}
   m_PrefabInstance: {fileID: 758815860}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &764891425 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8785809485352551033, guid: f0511ae4a8ab046deab5e4f8a28764eb, type: 3}
+  m_PrefabInstance: {fileID: 681383190}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &773738061
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6393,7 +6398,10 @@ MonoBehaviour:
   outerRadius: 40
   innerRadius: 20
   objectSize: 10
+  gizmoRadius: 2
   maxAttempts: 10
+  maxPoints: 1000
+  color: {r: 0.5, g: 0.5, b: 0.5, a: 1}
 --- !u!4 &1004772153
 Transform:
   m_ObjectHideFlags: 0
@@ -12133,6 +12141,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8799241981909023457, guid: ede8b9ea5c1981248bea61cb8f2b5fac, type: 3}
+      propertyPath: campfire
+      value: 
+      objectReference: {fileID: 764891425}
     - target: {fileID: 8921789246145698316, guid: ede8b9ea5c1981248bea61cb8f2b5fac, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -12238,11 +12250,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7447054125044968725, guid: 0d02abea12565144cbe2d3c99b9efcb2, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 13.49
+      value: 1.05
       objectReference: {fileID: 0}
     - target: {fileID: 7447054125044968725, guid: 0d02abea12565144cbe2d3c99b9efcb2, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -28.21
+      value: -6.97
       objectReference: {fileID: 0}
     - target: {fileID: 7447054125044968725, guid: 0d02abea12565144cbe2d3c99b9efcb2, type: 3}
       propertyPath: m_LocalRotation.w

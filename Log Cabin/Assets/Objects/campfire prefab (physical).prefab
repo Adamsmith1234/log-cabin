@@ -9700,7 +9700,7 @@ ParticleSystem:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8785809485352551033}
   serializedVersion: 8
-  lengthInSec: 1
+  lengthInSec: 10
   simulationSpeed: 1
   stopAction: 0
   cullingMode: 0
@@ -14502,7 +14502,10 @@ MonoBehaviour:
   mainFlamesSystem: {fileID: 5452377520989511409}
   smokeSystem: {fileID: 3062639801676773647}
   redFlamesSystem: {fileID: 4361236913070853023}
+  player: {fileID: 0}
   flamesOn: 0
+  particleSystems: []
+  fireSizeText: {fileID: 0}
 --- !u!1001 &62301815756901628
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -15023,7 +15026,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7384197711129483177, guid: 73d959c0b05234e508ef7aa0940581f8, type: 3}
       propertyPath: m_Name
-      value: campfire prefab Variant
+      value: campfire prefab (physical)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

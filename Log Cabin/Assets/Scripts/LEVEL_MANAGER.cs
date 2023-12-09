@@ -13,6 +13,8 @@ public class LEVEL_MANAGER : MonoBehaviour
     int levelCount = 3;  // INCREMENT WHEN ADDING NEW LEVELS
     levels currentLevel = levels.STARTER;
     public GameObject[] LevelUIs;
+    public GameObject campfire;
+
     void Update() {
         if (Input.GetKeyDown(KeyCode.H)) levelUp(); // REPLACE WITH TRIGGER FOR LEVELUP (e.g. picking up page)
         if (currentLevel >= levels.NEEDS_HEAT) LevelUIs[0].GetComponent<FireScript>().updateSystem(Time.deltaTime);
@@ -26,5 +28,6 @@ public class LEVEL_MANAGER : MonoBehaviour
         currentLevel += 1;
         // REPLACE WITH MORE COMPREHENSIVE METHOD THAT SPACES OUT THE UI ON SCREEN IF NECESSARY
         LevelUIs[(int) currentLevel - 1].SetActive(true);
+        if (currentLevel == levels.NEEDS_HEAT) campfire.GetComponent<CampfireScript>().turnOnFire();
     }
 }

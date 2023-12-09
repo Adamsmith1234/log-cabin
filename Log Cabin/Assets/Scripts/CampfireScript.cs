@@ -2,8 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using Unity.VisualScripting;
 
-public class fireScript : MonoBehaviour
+public class CampfireScript : MonoBehaviour
 {
 
     public ParticleSystem mainFlamesSystem;
@@ -24,7 +25,6 @@ public class fireScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
         var mainFlamesEmission = mainFlamesSystem.emission; // Stores the module in a local variable
         var smokeEmission = smokeSystem.emission; // Stores the module in a local variable
         var redFlamesEmission = redFlamesSystem.emission; // Stores the module in a local variable
@@ -36,83 +36,20 @@ public class fireScript : MonoBehaviour
         flamesOn = true;
 
         particleSystems = GetComponentsInChildren<ParticleSystem>(); //Child particle systems
-        
+        mainFlamesSystem.Stop();
+        smokeSystem.Stop();
+        redFlamesSystem.Stop();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-        var mainFlamesEmission = mainFlamesSystem.emission; // Stores the module in a local variable
-        var smokeEmission = smokeSystem.emission; // Stores the module in a local variable
-        var redFlamesEmission = redFlamesSystem.emission; // Stores the module in a local variable
-
-        var main = mainFlamesSystem.main; //Only using this one for the text for now, will need to use others eventually
-
-        fireSizeText.text = "Fire Size: " + string.Format("{0:N2}", main.duration) + " Units";
-
-        //Debug.Log(main.duration);
-
-        if (Input.GetKeyDown("space")){
-            if (player.GetComponent<Player>().woodCount > 0 && !hasPlacedWood){
-
-                hasPlacedWood = true;
-
-                //This goes through and applies this to each of it's children
-                foreach (ParticleSystem childParticleSystem in particleSystems){
-                    childParticleSystem.Stop(); 
-                    childParticleSystem.Clear();
-                    var childMain = childParticleSystem.main;
-                    childMain.duration += 1;
-                    childMain.startLifetime = childMain.duration;
-
-			        childParticleSystem.Play();
-		        }
-
-                player.GetComponent<Animator>().SetTrigger("is_picking_up");
-                player.GetComponent<Animator>().SetTrigger("done_picking_up");
-
-
-                Debug.Log("Added to fire");
-                player.GetComponent<Player>().woodCount -= 1;
-            }
-        }
-
-        else {
-            hasPlacedWood = false;
-        }
-        
+    public void turnOnFire() {
+        mainFlamesSystem.Play();
+        smokeSystem.Play();
+        redFlamesSystem.Play();
     }
 
-    /*void PlaceWoodHandler()
-    {
-        if (player.GetComponent<Player>().woodCount > 0 && !hasPlacedWood)
-        {
-            hasPlacedWood = true;
-
-            var main = mainFlamesSystem.main;
-
-            mainFlamesSystem.Stop();
-            mainFlamesSystem.Clear();
-            main.duration += 1;
-            main.startLifetime = main.duration;
-            mainFlamesSystem.Play();
-
-            foreach (ParticleSystem childParticleSystem in children)
-            {
-                childParticleSystem.Stop();
-                var childMain = childParticleSystem.main;
-                childMain.duration += 1;
-                childMain.startLifetime = childMain.duration;
-                childParticleSystem.Play();
-            }
-
-            player.GetComponent<Animator>().SetTrigger("is_picking_up");
-            player.GetComponent<Animator>().SetTrigger("done_picking_up");
-
-            Debug.Log("Added to fire");
-            player.GetComponent<Player>().woodCount -= 1;
-        }
+    public void updateParticles(float heat, float fireSize) {
+        var FlamesMain = mainFlamesSystem.main;
+        float scaledHeat = heat/40;
+        FlamesMain.startLifetime = Random.Range(.8f,1f)*scaledHeat;
     }
-    */
 }
