@@ -9,6 +9,8 @@ public class Player : MonoBehaviour
 
     public Animator animation_controller;
 
+    public Animator book_animation_controller;
+
     public float speed = 5f; 
     public float turnSpeed = 5f;
 
@@ -17,19 +19,6 @@ public class Player : MonoBehaviour
     public TextMeshProUGUI woodCountText;
 
     public TextMeshProUGUI pickUpText;
-
-    public TextMeshProUGUI centerOfScreenPlaceholder;
-
-    public TextMeshProUGUI normalBookPositionPlaceholder;
-
-    public GameObject book;
-
-    public Camera viewportCamera;
-
-    public bool isBookLarge = false;
-
-    public UnityEngine.Vector3 normalBookScale;
-
     
 
     public List<UnityEngine.Collider> overlappingColliders = new List<UnityEngine.Collider>();
@@ -39,8 +28,6 @@ public class Player : MonoBehaviour
         Rigidbody rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
         pickUpText.enabled = false;
-        isBookLarge = false;
-        normalBookScale = book.transform.localScale;
     }
 
     // Update is called once per frame
@@ -65,7 +52,7 @@ public class Player : MonoBehaviour
 
     void MovePlayerHandler(){
 
-        if (Input.GetKey ("up")){
+        if (Input.GetKey ("w")){
             //Movement input
             animation_controller.SetBool("is_walking", true);
             animation_controller.SetBool("is_walking_backward", false);
@@ -76,7 +63,7 @@ public class Player : MonoBehaviour
             animation_controller.SetBool("is_walking", false);
         }
 
-        if (Input.GetKey ("left")){
+        if (Input.GetKey ("a")){
             //Movement input
             animation_controller.SetBool("is_turning_left", true);
             animation_controller.SetBool("is_turning_right", false);
@@ -88,7 +75,7 @@ public class Player : MonoBehaviour
             animation_controller.SetBool("is_turning_left", false);          
         }
 
-        if (Input.GetKey ("right")){
+        if (Input.GetKey ("s")){
             //Movement input
             animation_controller.SetBool("is_turning_right", true);
             animation_controller.SetBool("is_turning_left", false);
@@ -101,7 +88,7 @@ public class Player : MonoBehaviour
         }
 
 
-        if (Input.GetKey ("down")){
+        if (Input.GetKey ("d")){
             //Movement input
             animation_controller.SetBool("is_turning_left", false);
             animation_controller.SetBool("is_turning_right", true);
@@ -110,46 +97,6 @@ public class Player : MonoBehaviour
             //Debug.Log("turning true");
         }
 
-        if (Input.GetKeyDown("b")){
-
-            if (isBookLarge){
-                book.transform.position = normalBookPositionPlaceholder.transform.position;
-
-                book.transform.localScale = normalBookScale;
-
-                isBookLarge = false;
-            }
-
-            else {
-                book.transform.position = centerOfScreenPlaceholder.transform.position;
-                
-                book.transform.localScale = new UnityEngine.Vector3 (100, 100, 9);
-
-                isBookLarge = true;
-            }
-
-
-            //int x = (viewportCamera.pixelWidth / 2);
-            //int y = (viewportCamera.pixelHeight / 2);
-
-            // Convert screen coordinates to world coordinates
-            //Vector3 bookPosition = viewportCamera.ScreenToWorldPoint(new Vector3(x, y, -7));
-
-            // Set the book's position
-
-
-
-            Debug.Log("New book position: " + book.transform.position);
-
-
-            /*if (book.activeSelf == true) {
-                book.SetActive(false); 
-            }
-            else {
-                book.SetActive(true); 
-            }
-            */
-        }
         
         else {
             animation_controller.SetBool("is_walking_backward", false);
