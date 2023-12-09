@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44664735, g: 0.49649268, b: 0.57486, a: 1}
+  m_IndirectSpecularColor: {r: 0.44664782, g: 0.49649352, b: 0.57486135, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -9547,6 +9547,7 @@ MonoBehaviour:
   LevelUIs:
   - {fileID: 941643508}
   - {fileID: 1180136583}
+  campfire: {fileID: 764891425}
 --- !u!4 &1578794126
 Transform:
   m_ObjectHideFlags: 0
