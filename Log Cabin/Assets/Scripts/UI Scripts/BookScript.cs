@@ -31,6 +31,8 @@ public class BookScript : MonoBehaviour
 
     public List<GameObject> notFlipped = new List<GameObject>();
 
+    private bool isFlipping = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -70,11 +72,13 @@ public class BookScript : MonoBehaviour
     }
 
     public void onFlip2(){
-        pages[currentPageNumber - 1].SetActive(false);
+        if(currentPageNumber >= 2) pages[currentPageNumber - 2].SetActive(false);
+        isFlipping = false;
     }
 
     public void onUnFlip2(){
         pages[currentPageNumber + 1].SetActive(false);
+        isFlipping = false;
     }
 
     public void change_book_state_handler(){
@@ -110,20 +114,22 @@ public class BookScript : MonoBehaviour
             currentPageNumber -= 1;
         }
 
+        if (isBookLarge && !isFlipping) {
+            if (currentPageNumber < currentLevelCap){
+                if (Input.GetKeyDown("k")){
+                    isFlipping = true;
+                    onFlip1();
 
-        if (currentPageNumber < currentLevelCap){
-            if (Input.GetKeyDown("k")){
-                onFlip1();
-
+                }
             }
-        }
 
-        if (currentPageNumber > 0){
-            if (Input.GetKeyDown("j")){
-                    //Debug.Log("K pressed");
-                onUnFlip1();
+            if (currentPageNumber > 0){
+                if (Input.GetKeyDown("j")){
+                    isFlipping = true;
+                    onUnFlip1();
 
-            } 
+                } 
+            }
         }
     }
 }
