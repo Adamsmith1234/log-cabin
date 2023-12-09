@@ -4,14 +4,18 @@ using UnityEngine;
 
 public class LEVEL_MANAGER : MonoBehaviour
 {
-    enum levels { // ADD NEW VALUES WHEN ADDING NEW LEVELS
+
+    private int levelCount = 3;
+
+    public GameObject book;
+    public enum levels { // ADD NEW VALUES WHEN ADDING NEW LEVELS
         STARTER,
         NEEDS_HEAT,
         NEEDS_FOOD,
         NEEDS_WATER
     }
-    int levelCount = 3;  // INCREMENT WHEN ADDING NEW LEVELS
-    levels currentLevel = levels.STARTER;
+      // INCREMENT WHEN ADDING NEW LEVELS
+    public levels currentLevel = levels.STARTER;
     public GameObject[] LevelUIs;
     public GameObject campfire;
 
@@ -26,6 +30,15 @@ public class LEVEL_MANAGER : MonoBehaviour
             return;
         }
         currentLevel += 1;
+
+        GameObject [] bookPages = book.GetComponent<BookScript>().pages;
+
+        Debug.Log((int) currentLevel);
+
+        if (bookPages.Length >= (int) currentLevel){
+            //bookPages[(int) currentLevel].SetActive(true);
+        }
+
         // REPLACE WITH MORE COMPREHENSIVE METHOD THAT SPACES OUT THE UI ON SCREEN IF NECESSARY
         LevelUIs[(int) currentLevel - 1].SetActive(true);
         if (currentLevel == levels.NEEDS_HEAT) campfire.GetComponent<CampfireScript>().turnOnFire();
