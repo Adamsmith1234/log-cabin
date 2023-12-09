@@ -37,6 +37,7 @@ public class BookScript : MonoBehaviour
     void Start()
     {
         isBookLarge = false;
+        transform.position = normalBookPositionPlaceholder.transform.position;
         normalBookScale = transform.localScale;
         //page1.SetActive(false);
         foreach (GameObject page in pages){
