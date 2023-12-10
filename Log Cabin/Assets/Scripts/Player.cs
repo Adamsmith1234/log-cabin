@@ -41,7 +41,7 @@ public class Player : MonoBehaviour
         MovePlayerHandler();
         pickUpWoodHandler();
 
-        woodCountText.text = "Wood Count: " + woodCount.ToString() +  " Logs";
+        woodCountText.text = "Wood Count: " + woodCount.ToString() +  " Objects";
 
         Rigidbody rb = GetComponent<Rigidbody>();
         //rb.MovePosition(transform.forward * speed * Time.deltaTime * verticalInput);
@@ -114,10 +114,10 @@ public class Player : MonoBehaviour
 
             if (Input.GetKey ("p")){
                 animation_controller.SetTrigger("is_picking_up");
+                Debug.Log("Picked up one: " + overlappingColliders[0].gameObject.tag);
                 Destroy(overlappingColliders[0].gameObject);
                 overlappingColliders.RemoveAt(0);
                 woodCount += 1;
-                Debug.Log("Wood count: " + woodCount);
                 animation_controller.SetTrigger("done_picking_up");
             }
         }

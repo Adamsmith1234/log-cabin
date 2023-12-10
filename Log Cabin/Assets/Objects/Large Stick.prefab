@@ -9,9 +9,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8153222386772736975}
+  - component: {fileID: 340693743169224134}
   m_Layer: 0
   m_Name: Large Stick
-  m_TagString: Untagged
+  m_TagString: Large Sticks
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -33,6 +34,29 @@ Transform:
   - {fileID: 1752678311820317150}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 84.286, y: 0, z: 0}
+--- !u!136 &340693743169224134
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8919958403606300662}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.75431144
+  m_Height: 1.5086231
+  m_Direction: 1
+  m_Center: {x: -0.00044178963, y: -0.00000005960465, z: -8.8174303e-17}
 --- !u!1001 &94308558179033994
 PrefabInstance:
   m_ObjectHideFlags: 0
