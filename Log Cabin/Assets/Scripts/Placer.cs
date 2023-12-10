@@ -24,7 +24,7 @@ public class PoissonWrapper : MonoBehaviour
     private void OnDrawGizmosSelected() {
         Gizmos.color = color;
         foreach (UnityEngine.Vector3 point in points) {
-            Gizmos.DrawSphere(new UnityEngine.Vector3(point.x,0,point.y) + transform.position, gizmoRadius);
+            Gizmos.DrawSphere(point + transform.position, gizmoRadius);
         }
         Gizmos.DrawWireSphere(transform.position,outerRadius+objectSize/2);
         Gizmos.DrawWireSphere(transform.position,innerRadius-objectSize/2);

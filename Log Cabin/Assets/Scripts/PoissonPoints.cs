@@ -57,7 +57,7 @@ public static class PoissonPoints {
         List<UnityEngine.Vector3> outPoints = new List<UnityEngine.Vector3>();
         for (int p = points.Count - 1; p >= 0; p--) {
             if (!(points[p].sqrMagnitude < innerRadius*innerRadius)) {
-                outPoints.Add(new UnityEngine.Vector3(points[p].x,points[p].y,UnityEngine.Random.Range(0,5)));
+                outPoints.Add(new UnityEngine.Vector3(points[p].x,0,points[p].y));
             }
         }
         return outPoints;
