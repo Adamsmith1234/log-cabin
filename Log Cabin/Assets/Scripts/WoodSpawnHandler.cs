@@ -23,13 +23,14 @@ public class WoodSpawnHandler : MonoBehaviour
 
     private void spawnFuel(FireScript.fuels type, int numSpawns = 1) {
         for (int x = 0; x < numSpawns; x++) {
+            if (emptyPoints[(int) type].Count == 0) return;
             Vector3 spawnPoint = getEmptyPoint(type);
             GameObject newFuel = Instantiate(fuelPrefabs[(int) type],spawnPoint+(Vector3.up * 3), Quaternion.identity);
         }
     }
 
     private Vector3 getEmptyPoint(FireScript.fuels type) {
-        int i = Random.Range(0,emptyPoints.Length);
+        int i = Random.Range(0,emptyPoints[(int) type].Count);
         Vector3 chosenPoint = emptyPoints[(int) type][i];
         pointsInUse[(int) type].Add(chosenPoint);
         emptyPoints[(int) type].RemoveAt(i);
