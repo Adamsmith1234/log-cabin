@@ -5,7 +5,7 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class NewBehaviourScript : MonoBehaviour
+public class PoissonWrapper : MonoBehaviour
 {
     public int outerRadius = 2;
     public int innerRadius = 1;
@@ -14,8 +14,9 @@ public class NewBehaviourScript : MonoBehaviour
     public int maxAttempts = 10;
     public int maxPoints = 1000;
     public Color color = Color.gray;
+    public FireScript.fuels type = FireScript.fuels.TINDER;
 
-    private List<UnityEngine.Vector3> points = new List<UnityEngine.Vector3>();
+    public List<UnityEngine.Vector3> points = new List<UnityEngine.Vector3>();
 
     private void OnValidate() {
         points = PoissonPoints.generatePoints(objectSize,maxAttempts,outerRadius,innerRadius,maxPoints);
