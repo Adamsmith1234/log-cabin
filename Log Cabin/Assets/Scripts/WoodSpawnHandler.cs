@@ -17,14 +17,14 @@ public class WoodSpawnHandler : MonoBehaviour
             emptyPoints[(int) spawner.type] = spawner.points;
         }
         for (int x = 0; x < 5; x++) {
-            if (fuelPrefabs[x] != null) spawnFuel((FireScript.fuels) x);
+            if (fuelPrefabs[x] != null) spawnFuel((FireScript.fuels) x,10);
         }
     }
 
     private void spawnFuel(FireScript.fuels type, int numSpawns = 1) {
         for (int x = 0; x < numSpawns; x++) {
             Vector3 spawnPoint = getEmptyPoint(type);
-            GameObject newFuel = Instantiate(fuelPrefabs[(int) type],spawnPoint, Quaternion.identity);
+            GameObject newFuel = Instantiate(fuelPrefabs[(int) type],spawnPoint+(Vector3.up * 3), Quaternion.identity);
         }
     }
 
