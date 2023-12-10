@@ -35,20 +35,23 @@ public class FireScript : MonoBehaviour
     private float heatLoss = .3f;
     private float[] fuelSizes = new float[] {1f,2f,4f,6f,10f};
     private float[] heatThresholds = new float[] {0f,2f,7f,12f,20f};
-    private float[] heatProduction = new float[] {1f,2f,4f,6f,12f};
+    private float[] heatProduction = new float[] {2f,4f,6f,8f,10f};
     private float[] burnSpeeds = new float[] {1.0f,.8f,.5f,.3f,.1f};
 
+    public GameObject player;
+
     public void updateSystem(float deltaTime) {
-        if (Input.GetKeyDown(KeyCode.Y)) addFuel(fuels.TINDER);
-        if (Input.GetKeyDown(KeyCode.U)) addFuel(fuels.KINDLING);
-        if (Input.GetKeyDown(KeyCode.I)) addFuel(fuels.SMALL_STICKS);
-        if (Input.GetKeyDown(KeyCode.O)) addFuel(fuels.LARGE_STICKS);
-        if (Input.GetKeyDown(KeyCode.P)) addFuel(fuels.LOGS);
+        Debug.Log(fireSize);
+        if (Input.GetKeyDown(KeyCode.Y) && player.GetComponent<Player>().woodInventory[(int) fuels.TINDER] > 0) addFuel(fuels.TINDER);
+        if (Input.GetKeyDown(KeyCode.U) && player.GetComponent<Player>().woodInventory[(int) fuels.KINDLING] > 0) addFuel(fuels.KINDLING);
+        if (Input.GetKeyDown(KeyCode.I) && player.GetComponent<Player>().woodInventory[(int) fuels.SMALL_STICKS] > 0) addFuel(fuels.SMALL_STICKS);
+        if (Input.GetKeyDown(KeyCode.O) && player.GetComponent<Player>().woodInventory[(int) fuels.LARGE_STICKS] > 0) addFuel(fuels.LARGE_STICKS);
+        if (Input.GetKeyDown(KeyCode.P) && player.GetComponent<Player>().woodInventory[(int) fuels.LOGS] > 0) addFuel(fuels.LOGS);
         for (int x=0; x < 5; x++) {
             if (heat >= heatThresholds[x]) {
                 float fuelDelta = Mathf.Clamp(burnSpeeds[x] * deltaTime,0,fuelAmounts[x]);
                 float burnMultiplier = 1f;
-                if (heat > heatThresholds[x]*3) burnMultiplier = 5f;
+                if (heat > heatThresholds[x]*3) burnMultiplier = 15f;
                 fuelAmounts[x] -= Mathf.Clamp(fuelDelta * burnMultiplier,0,fuelAmounts[x]);
                 heat += heatProduction[x]*fuelDelta;
             }
@@ -57,9 +60,17 @@ public class FireScript : MonoBehaviour
         //Debug.Log("Fire size: "+fireSize.ToString("0.00")+" Heat: "+heat.ToString("0.00"));
         heatBar.percentFilled = heat/(firePitCapacity*2);
         campfire.GetComponent<CampfireScript>().updateParticles(heat,fireSize);
+
+        if (fireSize >= firePitCapacity - fuelSizes[0] && heat == 0f){
+            fuelAmounts = new float[] {0f,0f,0f,0f,0f};
+        }
     }
 
     public void addFuel(fuels fuelType) {
-        if (fireSize + fuelSizes[(int) fuelType] <= firePitCapacity) fuelAmounts[(int) fuelType] += 1;
+        if (fireSize + fuelSizes[(int) fuelType] <= firePitCapacity){
+            //Debug.Log("WORKED");
+            fuelAmounts[(int) fuelType] += 1;
+            player.GetComponent<Player>().woodInventory[(int) fuelType] -= 1;
+        } 
     }
 }

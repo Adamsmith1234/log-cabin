@@ -20,14 +20,22 @@ public class Player : MonoBehaviour
 
     public TextMeshProUGUI pickUpText;
     
-
     public List<UnityEngine.Collider> overlappingColliders = new List<UnityEngine.Collider>();
+
+    public int[] woodInventory;
+    public int tinderSlot, kindlingSlot, smallStickSlot, largeStickSlot, logSlot;
 
     // Start is called before the first frame update
     void Start(){
         Rigidbody rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
         pickUpText.enabled = false;
+        tinderSlot = 0;
+        kindlingSlot = 1;
+        smallStickSlot = 2;
+        largeStickSlot = 3;
+        logSlot = 4;
+        woodInventory = new int[] {100,100,100,100,100};
     }
 
     // Update is called once per frame
@@ -41,7 +49,7 @@ public class Player : MonoBehaviour
         MovePlayerHandler();
         pickUpWoodHandler();
 
-        woodCountText.text = "Wood Count: " + woodCount.ToString() +  " Objects";
+        woodCountText.text = "Inventory: T = " + woodInventory[tinderSlot].ToString() + " K = " + woodInventory[kindlingSlot].ToString() + " sS = " + woodInventory[smallStickSlot].ToString() + " lS = " + woodInventory[largeStickSlot].ToString() + " L = " + woodInventory[logSlot].ToString();
 
         Rigidbody rb = GetComponent<Rigidbody>();
         //rb.MovePosition(transform.forward * speed * Time.deltaTime * verticalInput);
@@ -115,9 +123,25 @@ public class Player : MonoBehaviour
             if (Input.GetKey ("p")){
                 animation_controller.SetTrigger("is_picking_up");
                 Debug.Log("Picked up one: " + overlappingColliders[0].gameObject.tag);
+
+                if (overlappingColliders[0].gameObject.tag == "Tinder"){
+                    woodInventory[tinderSlot] += 1;
+                }
+                if (overlappingColliders[0].gameObject.tag == "Kindling"){
+                    woodInventory[kindlingSlot] += 1;
+                }
+                if (overlappingColliders[0].gameObject.tag == "Small Stick"){
+                    woodInventory[smallStickSlot] += 1;
+                }
+                if (overlappingColliders[0].gameObject.tag == "Large Stick"){
+                    woodInventory[largeStickSlot] += 1;
+                }
+                if (overlappingColliders[0].gameObject.tag == "Log"){
+                    woodInventory[logSlot] += 1;
+                }
+
                 Destroy(overlappingColliders[0].gameObject);
                 overlappingColliders.RemoveAt(0);
-                woodCount += 1;
                 animation_controller.SetTrigger("done_picking_up");
             }
         }
