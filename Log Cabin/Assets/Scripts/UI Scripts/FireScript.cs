@@ -34,9 +34,10 @@ public class FireScript : MonoBehaviour
     private float _heat = 0;
     private float heatLoss = .3f;
     private float[] fuelSizes = new float[] {1f,2f,4f,6f,10f};
-    private float[] heatThresholds = new float[] {0f,2f,7f,12f,20f};
-    private float[] heatProduction = new float[] {1f,2f,4f,6f,12f};
-    private float[] burnSpeeds = new float[] {1.0f,.8f,.5f,.3f,.1f};
+    private float[] heatThresholds = new float[] {0f,1.10f,3.41f,8.28f,18.51f};
+    private float[] heatProduction = new float[] {.5f,1.25f,2f,5f,15f};
+    private float[] burnSpeeds = new float[] {3f,1f,.5f,.3f,.1f};
+    private bool isLit = false;
 
     public void updateSystem(float deltaTime) {
         if (Input.GetKeyDown(KeyCode.Y)) addFuel(fuels.TINDER);
@@ -44,19 +45,22 @@ public class FireScript : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.I)) addFuel(fuels.SMALL_STICKS);
         if (Input.GetKeyDown(KeyCode.O)) addFuel(fuels.LARGE_STICKS);
         if (Input.GetKeyDown(KeyCode.P)) addFuel(fuels.LOGS);
-        for (int x=0; x < 5; x++) {
-            if (heat >= heatThresholds[x]) {
-                float fuelDelta = Mathf.Clamp(burnSpeeds[x] * deltaTime,0,fuelAmounts[x]);
-                float burnMultiplier = 1f;
-                if (heat > heatThresholds[x]*3) burnMultiplier = 5f;
-                fuelAmounts[x] -= Mathf.Clamp(fuelDelta * burnMultiplier,0,fuelAmounts[x]);
-                heat += heatProduction[x]*fuelDelta;
+        if (Input.GetKeyDown(KeyCode.LeftBracket)) {isLit = true;campfire.GetComponent<CampfireScript>().turnOnFire();}
+        if (isLit) {
+            for (int x=0; x < 5; x++) {
+                if (heat >= heatThresholds[x]) {
+                    float fuelDelta = Mathf.Clamp(burnSpeeds[x] * deltaTime,0,fuelAmounts[x]);
+                    float burnMultiplier = 1f;
+                    if (heat > (heatThresholds[x]+1)*2) burnMultiplier = 15f;
+                    fuelAmounts[x] -= Mathf.Clamp(fuelDelta * burnMultiplier,0,fuelAmounts[x]);
+                    heat += heatProduction[x]*fuelDelta;
+                }
             }
+            heat = Mathf.Max(0,heat - heatLoss * deltaTime);
+            campfire.GetComponent<CampfireScript>().updateParticles(heat,fireSize);
+            if (heat == 0f) {isLit = false;campfire.GetComponent<CampfireScript>().turnOffFire();}
         }
-        heat -= heatLoss * deltaTime;
-        //Debug.Log("Fire size: "+fireSize.ToString("0.00")+" Heat: "+heat.ToString("0.00"));
-        heatBar.percentFilled = heat/(firePitCapacity*2);
-        campfire.GetComponent<CampfireScript>().updateParticles(heat,fireSize);
+        heatBar.percentFilled = Mathf.Log(heat+1,41);
     }
 
     public void addFuel(fuels fuelType) {

@@ -41,6 +41,5 @@ public class LEVEL_MANAGER : MonoBehaviour
 
         // REPLACE WITH MORE COMPREHENSIVE METHOD THAT SPACES OUT THE UI ON SCREEN IF NECESSARY
         LevelUIs[(int) currentLevel - 1].SetActive(true);
-        if (currentLevel == levels.NEEDS_HEAT) campfire.GetComponent<CampfireScript>().turnOnFire();
     }
 }

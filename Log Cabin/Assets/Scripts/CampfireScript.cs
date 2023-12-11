@@ -46,10 +46,30 @@ public class CampfireScript : MonoBehaviour
         smokeSystem.Play();
         redFlamesSystem.Play();
     }
+    public void turnOffFire() {
+        mainFlamesSystem.Stop();
+        smokeSystem.Stop();
+        redFlamesSystem.Stop();
+    }
 
     public void updateParticles(float heat, float fireSize) {
         var FlamesMain = mainFlamesSystem.main;
-        float scaledHeat = heat/40;
-        FlamesMain.startLifetime = Random.Range(.8f,1f)*scaledHeat;
+        var redFlamesMain = redFlamesSystem.main;
+        var smokeMain = smokeSystem.main;
+        float scaledHeat = Mathf.Log(heat+1,41);
+        FlamesMain.startLifetime = flameHeight(scaledHeat,fireSize);
+        redFlamesMain.startLifetime = redFlameHeight(scaledHeat,fireSize);
+        smokeMain.startLifetime = smokeHeight(scaledHeat,fireSize);
+    }
+
+    float flameHeight(float scaledHeat, float fireSize) {
+        return Random.Range(scaledHeat-.2f,scaledHeat+.2f);
+    }
+    float redFlameHeight(float scaledHeat, float fireSize) {
+        return Random.Range(scaledHeat-.7f,scaledHeat-.3f);
+    }
+    float smokeHeight(float scaledHeat, float fireSize) {
+        float inverseScaledHeat = 1/scaledHeat;
+        return Random.Range(inverseScaledHeat-.2f,inverseScaledHeat+.2f);
     }
 }
