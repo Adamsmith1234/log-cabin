@@ -25,7 +25,7 @@ public class WoodSpawnHandler : MonoBehaviour
         for (int x = 0; x < numSpawns; x++) {
             if (emptyPoints[(int) type].Count == 0) return;
             Vector3 spawnPoint = getEmptyPoint(type);
-            GameObject newFuel = Instantiate(fuelPrefabs[(int) type],spawnPoint+(Vector3.up * 3), Quaternion.identity);
+            GameObject newFuel = Instantiate(fuelPrefabs[(int) type],spawnPoint+(Vector3.up * 10), Quaternion.identity);
             newFuel.GetComponent<WoodPickup>().spawnPoint = spawnPoint;
             newFuel.GetComponent<WoodPickup>().type = type;
         }
