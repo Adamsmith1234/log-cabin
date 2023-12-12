@@ -47,6 +47,7 @@ public class FireScript : MonoBehaviour
     public GameObject player;
 
     public void updateSystem(float deltaTime) {
+        Debug.Log(fireSize);
         if (Input.GetKeyDown(KeyCode.Y) && player.GetComponent<Player>().woodInventory[(int) fuels.TINDER] > 0) addFuel(fuels.TINDER);
         if (Input.GetKeyDown(KeyCode.U) && player.GetComponent<Player>().woodInventory[(int) fuels.KINDLING] > 0) addFuel(fuels.KINDLING);
         if (Input.GetKeyDown(KeyCode.I) && player.GetComponent<Player>().woodInventory[(int) fuels.SMALL_STICKS] > 0) addFuel(fuels.SMALL_STICKS);
@@ -80,6 +81,10 @@ public class FireScript : MonoBehaviour
             //Debug.Log("WORKED");
             fuelAmounts[(int) fuelType] += 1;
             player.GetComponent<Player>().woodInventory[(int) fuelType] -= 1;
+            woodInventoryUI[(int) fuelType].GetComponent<Text>().text = player.GetComponent<Player>().woodInventory[(int) fuelType].ToString();
         } 
+    }
+    public void pickUpFuel(fuels fuelType) {
+        woodInventoryUI[(int) fuelType].GetComponent<Text>().text = player.GetComponent<Player>().woodInventory[(int) fuelType].ToString();
     }
 }
