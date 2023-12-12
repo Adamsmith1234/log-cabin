@@ -8,12 +8,10 @@ TagManager:
   - Tinder
   - Kindling
   - Small Stick
-<<<<<<< Updated upstream
-  - Large Stick
-=======
   - Large Sticks
   - Blueberry
->>>>>>> Stashed changes
+  - Large Stick
+  - Baneberry
   layers:
   - Default
   - TransparentFX
