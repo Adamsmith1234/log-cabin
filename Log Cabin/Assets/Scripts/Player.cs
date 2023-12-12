@@ -25,6 +25,8 @@ public class Player : MonoBehaviour
     public int[] woodInventory;
     public int tinderSlot, kindlingSlot, smallStickSlot, largeStickSlot, logSlot;
 
+    public GameObject hungerUI;
+
     // Start is called before the first frame update
     void Start(){
         Rigidbody rb = GetComponent<Rigidbody>();
@@ -47,7 +49,7 @@ public class Player : MonoBehaviour
         float turn = horizontalInput * turnSpeed * Time.deltaTime;
 
         MovePlayerHandler();
-        pickUpWoodHandler();
+        pickUpHandler();
 
         woodCountText.text = "Inventory: T = " + woodInventory[tinderSlot].ToString() + " K = " + woodInventory[kindlingSlot].ToString() + " sS = " + woodInventory[smallStickSlot].ToString() + " lS = " + woodInventory[largeStickSlot].ToString() + " L = " + woodInventory[logSlot].ToString();
 
@@ -112,7 +114,7 @@ public class Player : MonoBehaviour
     }
 
     //Handles picking up wood based on if there's anything overlapping (for now, just wood)
-    void pickUpWoodHandler() {
+    void pickUpHandler() {
 
         //Debug.Log(overlappingColliders.Count);
 
@@ -122,7 +124,7 @@ public class Player : MonoBehaviour
 
             if (Input.GetKey ("p")){
                 animation_controller.SetTrigger("is_picking_up");
-                Debug.Log("Picked up one: " + overlappingColliders[0].gameObject.tag);
+                //Debug.Log("Picked up one: " + overlappingColliders[0].gameObject.tag);
 
                 if (overlappingColliders[0].gameObject.tag == "Tinder"){
                     woodInventory[tinderSlot] += 1;
@@ -139,6 +141,9 @@ public class Player : MonoBehaviour
                 if (overlappingColliders[0].gameObject.tag == "Log"){
                     woodInventory[logSlot] += 1;
                 }
+                if (overlappingColliders[0].gameObject.tag == "Blueberry"){
+                    hungerUI.GetComponent<HungerScript>().eatBlueberry();;
+                }
 
                 Destroy(overlappingColliders[0].gameObject);
                 overlappingColliders.RemoveAt(0);
@@ -149,6 +154,7 @@ public class Player : MonoBehaviour
             pickUpText.enabled = false;
         }
     }
+
 
     private void OnTriggerEnter(Collider other)
     {

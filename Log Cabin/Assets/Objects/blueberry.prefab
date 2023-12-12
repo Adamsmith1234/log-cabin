@@ -10,9 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 3788060963733082123}
   - component: {fileID: 4245367699430897148}
+  - component: {fileID: 3847898547572080759}
   m_Layer: 0
   m_Name: blueberry
-  m_TagString: Untagged
+  m_TagString: Blueberry
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -26,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 1413572656858293275}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6.963, y: 0.79093, z: -8.8038}
+  m_LocalPosition: {x: 6.963, y: 0.818, z: -8.8038}
   m_LocalScale: {x: 0.2375, y: 0.275, z: 0.2375}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -57,6 +58,29 @@ LODGroup:
     renderers:
     - renderer: {fileID: 1709181017488551094}
   m_Enabled: 1
+--- !u!136 &3847898547572080759
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1413572656858293275}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5762351
+  m_Height: 1.0568061
+  m_Direction: 1
+  m_Center: {x: 0.013725883, y: 0.22846167, z: 0}
 --- !u!1 &3350683620606765597
 GameObject:
   m_ObjectHideFlags: 0
