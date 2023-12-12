@@ -20,7 +20,7 @@ public class Player : MonoBehaviour
 
     public TextMeshProUGUI pickUpText;
     
-
+    public GameObject WoodSpawner;
     public List<UnityEngine.Collider> overlappingColliders = new List<UnityEngine.Collider>();
 
     // Start is called before the first frame update
@@ -115,6 +115,7 @@ public class Player : MonoBehaviour
             if (Input.GetKey ("p")){
                 animation_controller.SetTrigger("is_picking_up");
                 Debug.Log("Picked up one: " + overlappingColliders[0].gameObject.tag);
+                WoodSpawner.GetComponent<WoodSpawnHandler>().restorePoint(overlappingColliders[0].gameObject.GetComponent<WoodPickup>());
                 Destroy(overlappingColliders[0].gameObject);
                 overlappingColliders.RemoveAt(0);
                 woodCount += 1;

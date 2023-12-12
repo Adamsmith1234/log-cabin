@@ -9,7 +9,7 @@ public class BarGauge : MonoBehaviour
 {
     [SerializeField] private GameObject meterPanel;
     [SerializeField] private Color meterColor = new Color(0,0,0,1);
-    private int width = 198;
+    public int width = 198;
     public float percentFilled {
         get {return _percentFilled;}
         set {

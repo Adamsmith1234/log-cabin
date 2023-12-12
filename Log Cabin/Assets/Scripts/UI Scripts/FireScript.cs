@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class FireScript : MonoBehaviour
 {
@@ -39,13 +40,22 @@ public class FireScript : MonoBehaviour
     private float[] burnSpeeds = new float[] {3f,1f,.5f,.3f,.1f};
     private bool isLit = false;
 
+    public int matches = 3;
+    public GameObject[] matchObjects = new GameObject[3];
+    public GameObject[] woodInventoryUI = new GameObject[5];
+
     public void updateSystem(float deltaTime) {
         if (Input.GetKeyDown(KeyCode.Y)) addFuel(fuels.TINDER);
         if (Input.GetKeyDown(KeyCode.U)) addFuel(fuels.KINDLING);
         if (Input.GetKeyDown(KeyCode.I)) addFuel(fuels.SMALL_STICKS);
         if (Input.GetKeyDown(KeyCode.O)) addFuel(fuels.LARGE_STICKS);
         if (Input.GetKeyDown(KeyCode.P)) addFuel(fuels.LOGS);
-        if (Input.GetKeyDown(KeyCode.LeftBracket)) {isLit = true;campfire.GetComponent<CampfireScript>().turnOnFire();}
+        if (Input.GetKeyDown(KeyCode.M) && !isLit && matches > 0) {
+            matches -= 1;
+            matchObjects[matches].SetActive(false);
+            isLit = true;
+            campfire.GetComponent<CampfireScript>().turnOnFire();
+        }
         if (isLit) {
             for (int x=0; x < 5; x++) {
                 if (heat >= heatThresholds[x]) {

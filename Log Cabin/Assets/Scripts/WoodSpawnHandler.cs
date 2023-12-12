@@ -26,6 +26,8 @@ public class WoodSpawnHandler : MonoBehaviour
             if (emptyPoints[(int) type].Count == 0) return;
             Vector3 spawnPoint = getEmptyPoint(type);
             GameObject newFuel = Instantiate(fuelPrefabs[(int) type],spawnPoint+(Vector3.up * 3), Quaternion.identity);
+            newFuel.GetComponent<WoodPickup>().spawnPoint = spawnPoint;
+            newFuel.GetComponent<WoodPickup>().type = type;
         }
     }
 
@@ -37,8 +39,9 @@ public class WoodSpawnHandler : MonoBehaviour
         return chosenPoint;
     }
 
-    private void restorePoint(FireScript.fuels type, Vector3 p) {
-        emptyPoints[(int) type].Add(p);
-        pointsInUse[(int) type].Remove(p);
+    public void restorePoint(WoodPickup wood) {
+        pointsInUse[(int) wood.type].Remove(wood.spawnPoint);
+        spawnFuel(wood.type,1);
+        emptyPoints[(int) wood.type].Add(wood.spawnPoint);
     }
 }
