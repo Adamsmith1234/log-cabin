@@ -38,7 +38,7 @@ public class WoodSpawnHandler : MonoBehaviour
         emptyPoints[(int) type].RemoveAt(i);
         return chosenPoint;
     }
-
+    
     public void restorePoint(WoodPickup wood) {
         pointsInUse[(int) wood.type].Remove(wood.spawnPoint);
         spawnFuel(wood.type,1);

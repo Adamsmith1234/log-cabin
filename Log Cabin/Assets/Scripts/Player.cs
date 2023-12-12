@@ -126,26 +126,12 @@ public class Player : MonoBehaviour
             if (Input.GetKey ("p")){
                 animation_controller.SetTrigger("is_picking_up");
                 Debug.Log("Picked up one: " + overlappingColliders[0].gameObject.tag);
-                WoodSpawner.GetComponent<WoodSpawnHandler>().restorePoint(overlappingColliders[0].gameObject.GetComponent<WoodPickup>());
-                if (overlappingColliders[0].gameObject.tag == "Tinder"){
-                    woodInventory[tinderSlot] += 1;
-                }
-                if (overlappingColliders[0].gameObject.tag == "Kindling"){
-                    woodInventory[kindlingSlot] += 1;
-                }
-                if (overlappingColliders[0].gameObject.tag == "Small Stick"){
-                    woodInventory[smallStickSlot] += 1;
-                }
-                if (overlappingColliders[0].gameObject.tag == "Large Stick"){
-                    woodInventory[largeStickSlot] += 1;
-                }
-                if (overlappingColliders[0].gameObject.tag == "Log"){
-                    woodInventory[logSlot] += 1;
-                }
                 if (overlappingColliders[0].gameObject.tag == "Blueberry"){
                     hungerUI.GetComponent<HungerScript>().eatBlueberry();;
+                } else {
+                    WoodSpawner.GetComponent<WoodSpawnHandler>().restorePoint(overlappingColliders[0].gameObject.GetComponent<WoodPickup>());
+                    woodInventory[(int) overlappingColliders[0].gameObject.GetComponent<WoodPickup>().type] += 1;
                 }
-
                 Destroy(overlappingColliders[0].gameObject);
                 overlappingColliders.RemoveAt(0);
                 animation_controller.SetTrigger("done_picking_up");
