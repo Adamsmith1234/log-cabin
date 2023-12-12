@@ -128,10 +128,15 @@ public class Player : MonoBehaviour
                 Debug.Log("Picked up one: " + overlappingColliders[0].gameObject.tag);
                 if (overlappingColliders[0].gameObject.tag == "Blueberry"){
                     hungerUI.GetComponent<HungerScript>().eatBlueberry();;
+                }
+                else if (overlappingColliders[0].gameObject.tag == "Baneberry"){
+                    hungerUI.GetComponent<HungerScript>().eatBaneberry();;
                 } else {
                     WoodSpawner.GetComponent<WoodSpawnHandler>().restorePoint(overlappingColliders[0].gameObject.GetComponent<WoodPickup>());
                     woodInventory[(int) overlappingColliders[0].gameObject.GetComponent<WoodPickup>().type] += 1;
                 }
+
+
                 Destroy(overlappingColliders[0].gameObject);
                 overlappingColliders.RemoveAt(0);
                 animation_controller.SetTrigger("done_picking_up");

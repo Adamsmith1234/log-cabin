@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3485363265706935100}
   m_Layer: 0
   m_Name: object
-  m_TagString: Blueberry
+  m_TagString: Baneberry
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -280,7 +280,7 @@ GameObject:
   - component: {fileID: 4024149820553499509}
   m_Layer: 0
   m_Name: baneberry
-  m_TagString: Untagged
+  m_TagString: Baneberry
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
