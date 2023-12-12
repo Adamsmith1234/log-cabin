@@ -9,6 +9,9 @@ TagManager:
   - Kindling
   - Small Stick
   - Large Sticks
+  - Blueberry
+  - Large Stick
+  - Baneberry
   layers:
   - Default
   - TransparentFX

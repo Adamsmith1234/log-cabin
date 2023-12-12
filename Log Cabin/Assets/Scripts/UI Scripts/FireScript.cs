@@ -44,12 +44,14 @@ public class FireScript : MonoBehaviour
     public GameObject[] matchObjects = new GameObject[3];
     public GameObject[] woodInventoryUI = new GameObject[5];
 
+    public GameObject player;
+
     public void updateSystem(float deltaTime) {
-        if (Input.GetKeyDown(KeyCode.Y)) addFuel(fuels.TINDER);
-        if (Input.GetKeyDown(KeyCode.U)) addFuel(fuels.KINDLING);
-        if (Input.GetKeyDown(KeyCode.I)) addFuel(fuels.SMALL_STICKS);
-        if (Input.GetKeyDown(KeyCode.O)) addFuel(fuels.LARGE_STICKS);
-        if (Input.GetKeyDown(KeyCode.P)) addFuel(fuels.LOGS);
+        if (Input.GetKeyDown(KeyCode.Y) && player.GetComponent<Player>().woodInventory[(int) fuels.TINDER] > 0) addFuel(fuels.TINDER);
+        if (Input.GetKeyDown(KeyCode.U) && player.GetComponent<Player>().woodInventory[(int) fuels.KINDLING] > 0) addFuel(fuels.KINDLING);
+        if (Input.GetKeyDown(KeyCode.I) && player.GetComponent<Player>().woodInventory[(int) fuels.SMALL_STICKS] > 0) addFuel(fuels.SMALL_STICKS);
+        if (Input.GetKeyDown(KeyCode.O) && player.GetComponent<Player>().woodInventory[(int) fuels.LARGE_STICKS] > 0) addFuel(fuels.LARGE_STICKS);
+        if (Input.GetKeyDown(KeyCode.P) && player.GetComponent<Player>().woodInventory[(int) fuels.LOGS] > 0) addFuel(fuels.LOGS);
         if (Input.GetKeyDown(KeyCode.M) && !isLit && matches > 0) {
             matches -= 1;
             matchObjects[matches].SetActive(false);
@@ -74,6 +76,10 @@ public class FireScript : MonoBehaviour
     }
 
     public void addFuel(fuels fuelType) {
-        if (fireSize + fuelSizes[(int) fuelType] <= firePitCapacity) fuelAmounts[(int) fuelType] += 1;
+        if (fireSize + fuelSizes[(int) fuelType] <= firePitCapacity){
+            //Debug.Log("WORKED");
+            fuelAmounts[(int) fuelType] += 1;
+            player.GetComponent<Player>().woodInventory[(int) fuelType] -= 1;
+        } 
     }
 }
