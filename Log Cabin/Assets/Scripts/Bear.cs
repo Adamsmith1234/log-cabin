@@ -1,33 +1,64 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Bear : MonoBehaviour
 {
-    // Start is called before the first frame update
-
-    public float moveSpeed = 5f; // Adjust the speed as needed
-
+    public float moveSpeed = 2f;
     public GameObject player;
+    public Animator animationController;
+
+    public GameObject cave;
+    public GameObject fireUI;
+
+    bool debugWalkDirection = false; 
 
     void Update()
     {
-        // Get user input for movement
+
+        var fireSize = fireUI.GetComponent<FireScript>().heat;
+        Vector3 adjustedCavePosition = cave.transform.position;
+
+        adjustedCavePosition[0] -= 1;
+        adjustedCavePosition[1] += 2;
+        adjustedCavePosition[2] += 11;
+
+        Vector3 dirToCave = adjustedCavePosition - transform.position;
 
         // Calculate movement direction
-        Vector3 movement = new Vector3(1f, 0f, 0f);
-
+        Vector3 dirToPlayer = player.transform.position - transform.position;
+        
         // Move the NPC
-        MoveNPC(movement);
+        if (fireSize > 6){
+            MoveNPC(dirToCave);
+            //Debug.Log("Move toward " + dirToCave);
+        }
+        else {
+            MoveNPC(dirToPlayer);
+            //Debug.Log("Move toward " + dirToPlayer);
+        }
     }
 
-    void MoveNPC(Vector3 movement)
+
+    void MoveNPC(Vector3 movementDirection)
     {
-            Vector3 moveTowards = Vector3.MoveTowards(transform.position, player.transform.position, moveSpeed * Time.deltaTime);
 
-            //Function I'm using to restrict the height
-            //moveTowards.y = Mathf.Clamp(moveTowards.y, 0.0f, );
+        // Calculate the rotation to face the player
+        Quaternion lookRot = Quaternion.LookRotation(movementDirection);
+        lookRot.x = 0;
+        lookRot.z = 0;
 
-            transform.position = moveTowards;
+        // Smoothly rotate towards the player
+        transform.rotation = Quaternion.Slerp(transform.rotation, lookRot, Mathf.Clamp01(3.0f * Time.deltaTime));
+
+        // Calculate the position to move towards the player
+        Vector3 moveTowards = transform.position + movementDirection.normalized * moveSpeed * Time.deltaTime;
+
+        // Move towards the player
+        transform.position = moveTowards;
+
+        // Set walking animation
+        animationController.SetBool("is_walking", true);
     }
 }
