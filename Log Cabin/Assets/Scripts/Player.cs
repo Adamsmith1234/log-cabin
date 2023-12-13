@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using System.Numerics;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
@@ -16,15 +17,13 @@ public class Player : MonoBehaviour
 
     public int woodCount = 0;
 
-    public TextMeshProUGUI woodCountText;
-
     public TextMeshProUGUI pickUpText;
     
     public GameObject WoodSpawner;
     public List<UnityEngine.Collider> overlappingColliders = new List<UnityEngine.Collider>();
 
     public int[] woodInventory;
-    public int tinderSlot, kindlingSlot, smallStickSlot, largeStickSlot, logSlot;
+    public GameObject fireUI;
 
     public GameObject hungerUI;
 
@@ -33,12 +32,7 @@ public class Player : MonoBehaviour
         Rigidbody rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
         pickUpText.enabled = false;
-        tinderSlot = 0;
-        kindlingSlot = 1;
-        smallStickSlot = 2;
-        largeStickSlot = 3;
-        logSlot = 4;
-        woodInventory = new int[] {100,100,100,100,100};
+        woodInventory = new int[] {0,0,0,0,0};
     }
 
     // Update is called once per frame
@@ -51,8 +45,6 @@ public class Player : MonoBehaviour
 
         MovePlayerHandler();
         pickUpHandler();
-
-        woodCountText.text = "Inventory: T = " + woodInventory[tinderSlot].ToString() + " K = " + woodInventory[kindlingSlot].ToString() + " sS = " + woodInventory[smallStickSlot].ToString() + " lS = " + woodInventory[largeStickSlot].ToString() + " L = " + woodInventory[logSlot].ToString();
 
         Rigidbody rb = GetComponent<Rigidbody>();
         //rb.MovePosition(transform.forward * speed * Time.deltaTime * verticalInput);
@@ -123,7 +115,7 @@ public class Player : MonoBehaviour
 
             pickUpText.enabled = true;
 
-            if (Input.GetKey ("p")){
+            if (Input.GetKeyDown(KeyCode.Space)){
                 animation_controller.SetTrigger("is_picking_up");
                 Debug.Log("Picked up one: " + overlappingColliders[0].gameObject.tag);
                 if (overlappingColliders[0].gameObject.tag == "Blueberry"){
@@ -134,6 +126,7 @@ public class Player : MonoBehaviour
                 } else {
                     WoodSpawner.GetComponent<WoodSpawnHandler>().restorePoint(overlappingColliders[0].gameObject.GetComponent<WoodPickup>());
                     woodInventory[(int) overlappingColliders[0].gameObject.GetComponent<WoodPickup>().type] += 1;
+                    fireUI.GetComponent<FireScript>().pickUpFuel(overlappingColliders[0].gameObject.GetComponent<WoodPickup>().type);
                 }
 
 
@@ -144,6 +137,12 @@ public class Player : MonoBehaviour
         }
         else {
             pickUpText.enabled = false;
+        }
+    }
+
+    public void updateWoodUI() {
+        for (int x = 0; x < 5; x++) {
+            fireUI.GetComponent<FireScript>().woodInventoryUI[x].GetComponent<Text>().text = woodInventory[x].ToString();
         }
     }
 

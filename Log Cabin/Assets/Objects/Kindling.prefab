@@ -70,7 +70,7 @@ Rigidbody:
   m_GameObject: {fileID: 5647113400624547447}
   serializedVersion: 4
   m_Mass: 1
-  m_Drag: 0
+  m_Drag: 5
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
@@ -100,6 +100,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e16c17756d21d349b0f796b9b4f99d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spawnPoint: {x: 0, y: 0, z: 0}
+  type: 1
 --- !u!1001 &1240575769555762552
 PrefabInstance:
   m_ObjectHideFlags: 0
