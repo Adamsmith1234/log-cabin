@@ -46,19 +46,42 @@ public class FireScript : MonoBehaviour
 
     public GameObject player;
 
+    public AudioSource fireAudioSource;
+
+    public AudioSource woodAudioSource;
+
+    public AudioClip fireSoundClip, tinderSoundClip, kindlingSoundClip, smallStickSoundClip, largeStickSoundClip, logSoundClip, matchSound;
+
+    public AnimationCurve fireSoundCurve;
+
     public void updateSystem(float deltaTime) {
         Debug.Log(fireSize);
-        if (Input.GetKeyDown(KeyCode.Y) && player.GetComponent<Player>().woodInventory[(int) fuels.TINDER] > 0) addFuel(fuels.TINDER);
-        if (Input.GetKeyDown(KeyCode.U) && player.GetComponent<Player>().woodInventory[(int) fuels.KINDLING] > 0) addFuel(fuels.KINDLING);
-        if (Input.GetKeyDown(KeyCode.I) && player.GetComponent<Player>().woodInventory[(int) fuels.SMALL_STICKS] > 0) addFuel(fuels.SMALL_STICKS);
-        if (Input.GetKeyDown(KeyCode.O) && player.GetComponent<Player>().woodInventory[(int) fuels.LARGE_STICKS] > 0) addFuel(fuels.LARGE_STICKS);
-        if (Input.GetKeyDown(KeyCode.P) && player.GetComponent<Player>().woodInventory[(int) fuels.LOGS] > 0) addFuel(fuels.LOGS);
-        if (Input.GetKeyDown(KeyCode.M) && !isLit && matches > 0) {
-            matches -= 1;
-            matchObjects[matches].SetActive(false);
-            isLit = true;
-            campfire.GetComponent<CampfireScript>().turnOnFire();
+        if (player.GetComponent<Player>().isNextToFire == true){
+            if (Input.GetKeyDown(KeyCode.Y) && player.GetComponent<Player>().woodInventory[(int) fuels.TINDER] > 0) {
+                addFuel(fuels.TINDER);
+            }
+            if (Input.GetKeyDown(KeyCode.U) && player.GetComponent<Player>().woodInventory[(int) fuels.KINDLING] > 0){
+                addFuel(fuels.KINDLING);
+            }
+            if (Input.GetKeyDown(KeyCode.I) && player.GetComponent<Player>().woodInventory[(int) fuels.SMALL_STICKS] > 0){ 
+                addFuel(fuels.SMALL_STICKS);
+            }
+            if (Input.GetKeyDown(KeyCode.O) && player.GetComponent<Player>().woodInventory[(int) fuels.LARGE_STICKS] > 0){
+                addFuel(fuels.LARGE_STICKS);
+            }
+            if (Input.GetKeyDown(KeyCode.P) && player.GetComponent<Player>().woodInventory[(int) fuels.LOGS] > 0) {
+                addFuel(fuels.LOGS);
+            }
+            if (Input.GetKeyDown(KeyCode.M) && !isLit && matches > 0) {
+                woodAudioSource.clip = matchSound;
+                woodAudioSource.Play();
+                matches -= 1;
+                matchObjects[matches].SetActive(false);
+                isLit = true;
+                campfire.GetComponent<CampfireScript>().turnOnFire();
+            }
         }
+
         if (isLit) {
             for (int x=0; x < 5; x++) {
                 if (heat >= heatThresholds[x]) {
@@ -74,17 +97,71 @@ public class FireScript : MonoBehaviour
             if (heat == 0f) {isLit = false;campfire.GetComponent<CampfireScript>().turnOffFire();}
         }
         heatBar.percentFilled = Mathf.Log(heat+1,41);
+        fireSoundHandler();
     }
 
     public void addFuel(fuels fuelType) {
         if (fireSize + fuelSizes[(int) fuelType] <= firePitCapacity){
             //Debug.Log("WORKED");
+            if ((int) fuelType == 0){
+                woodAudioSource.clip = tinderSoundClip;
+                woodAudioSource.Play();
+            }
+            if ((int) fuelType == 1){
+                woodAudioSource.clip = kindlingSoundClip;
+                woodAudioSource.Play();
+            }
+            if ((int) fuelType == 2){
+                woodAudioSource.clip = smallStickSoundClip;
+                woodAudioSource.Play();
+            }
+            if ((int) fuelType == 3){
+                woodAudioSource.clip = largeStickSoundClip;
+                woodAudioSource.Play();
+            }
+            if ((int) fuelType == 4){
+                woodAudioSource.clip = logSoundClip;
+                woodAudioSource.Play();
+            }
             fuelAmounts[(int) fuelType] += 1;
             player.GetComponent<Player>().woodInventory[(int) fuelType] -= 1;
             woodInventoryUI[(int) fuelType].GetComponent<Text>().text = player.GetComponent<Player>().woodInventory[(int) fuelType].ToString();
         } 
     }
     public void pickUpFuel(fuels fuelType) {
+        if ((int) fuelType == 0){
+            woodAudioSource.clip = tinderSoundClip;
+            woodAudioSource.Play();
+        }
+        if ((int) fuelType == 1){
+            woodAudioSource.clip = kindlingSoundClip;
+            woodAudioSource.Play();
+        }
+        if ((int) fuelType == 2){
+            woodAudioSource.clip = smallStickSoundClip;
+            woodAudioSource.Play();
+        }
+        if ((int) fuelType == 3){
+            woodAudioSource.clip = largeStickSoundClip;
+            woodAudioSource.Play();
+        }
+        if ((int) fuelType == 4){
+            woodAudioSource.clip = logSoundClip;
+            woodAudioSource.Play();
+        }
         woodInventoryUI[(int) fuelType].GetComponent<Text>().text = player.GetComponent<Player>().woodInventory[(int) fuelType].ToString();
+    }
+
+    public void fireSoundHandler(){
+        if (heat <= 0){
+            fireAudioSource.Stop();
+        }
+        else {
+            if (fireAudioSource.isPlaying == false){
+                fireAudioSource.clip = fireSoundClip;
+                fireAudioSource.Play();
+            }
+            fireAudioSource.pitch = fireSoundCurve.Evaluate(heat/10);
+        }
     }
 }

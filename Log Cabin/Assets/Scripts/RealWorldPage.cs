@@ -13,6 +13,10 @@ public class RealWorldPage : MonoBehaviour
     public TextMeshProUGUI pickUpPageText;
 
     bool isOverlappingPlayer = false;
+
+    public AudioSource OtherObjectsAudioSource;
+
+    public AudioClip pickUpPaperClip;
     // Start is called before the first frame update
     void Start()
     {
@@ -39,6 +43,8 @@ public class RealWorldPage : MonoBehaviour
             if (isOverlappingPlayer){
                 pickUpPageText.enabled = true;
                 if (Input.GetKeyDown("space")){
+                    OtherObjectsAudioSource.clip = pickUpPaperClip;
+                    OtherObjectsAudioSource.Play();
                     levelManager.GetComponent<LEVEL_MANAGER>().levelUp();
                     Destroy(gameObject);
                     pickUpPageText.enabled = false;

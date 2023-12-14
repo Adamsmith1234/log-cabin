@@ -15,6 +15,7 @@ TagManager:
   - Cave
   - Book
   - Page
+  - CampFire
   layers:
   - Default
   - TransparentFX

@@ -38,6 +38,10 @@ public class BookScript : MonoBehaviour
 
     public Button leftButton, rightButton;
 
+    public AudioSource OtherObjectsAudioSource;
+
+    public AudioClip turnPageClip, clickOnBookClip;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -76,6 +80,8 @@ public class BookScript : MonoBehaviour
                Debug.Log("Clicked on " + clickedObject.tag);
 
                if (clickedObject.tag == "Book"){
+                    OtherObjectsAudioSource.clip = clickOnBookClip;
+                    OtherObjectsAudioSource.Play();
                     if (isBookLarge){
                         transform.position = normalBookPositionPlaceholder.transform.position;
                         transform.localScale = normalBookScale;
@@ -144,8 +150,10 @@ public class BookScript : MonoBehaviour
 
         if (isBookLarge && !isFlipping) {
             if (currentPageNumber <= currentLevelCap){
-                    isFlipping = true;
-                    onFlip1();
+                OtherObjectsAudioSource.clip = turnPageClip;
+                OtherObjectsAudioSource.Play();
+                isFlipping = true;
+                onFlip1();
 
             }
         }
@@ -187,8 +195,10 @@ public class BookScript : MonoBehaviour
         }
 
         if (currentPageNumber > 0){
-                isFlipping = true;
-                onUnFlip1();
+            OtherObjectsAudioSource.clip = turnPageClip;
+            OtherObjectsAudioSource.Play();
+            isFlipping = true;
+            onUnFlip1();
         }
     }
 }
