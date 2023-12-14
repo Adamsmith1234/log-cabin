@@ -77,12 +77,10 @@ public class FireScript : MonoBehaviour
     }
 
     public void addFuel(fuels fuelType) {
-        if (fireSize + fuelSizes[(int) fuelType] <= firePitCapacity){
-            //Debug.Log("WORKED");
-            fuelAmounts[(int) fuelType] += 1;
-            player.GetComponent<Player>().woodInventory[(int) fuelType] -= 1;
-            woodInventoryUI[(int) fuelType].GetComponent<Text>().text = player.GetComponent<Player>().woodInventory[(int) fuelType].ToString();
-        } 
+        //Debug.Log("WORKED");
+        fuelAmounts[(int) fuelType] += 1;
+        player.GetComponent<Player>().woodInventory[(int) fuelType] -= 1;
+        woodInventoryUI[(int) fuelType].GetComponent<Text>().text = player.GetComponent<Player>().woodInventory[(int) fuelType].ToString();
     }
     public void pickUpFuel(fuels fuelType) {
         woodInventoryUI[(int) fuelType].GetComponent<Text>().text = player.GetComponent<Player>().woodInventory[(int) fuelType].ToString();

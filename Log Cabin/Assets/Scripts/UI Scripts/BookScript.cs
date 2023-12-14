@@ -12,7 +12,7 @@ public class BookScript : MonoBehaviour
 
     public GameObject player;
 
-    public GameObject levelManager;
+    public LEVEL_MANAGER levelManager;
 
     public Animator animationController;
 
@@ -25,12 +25,10 @@ public class BookScript : MonoBehaviour
     public UnityEngine.Vector3 normalBookScale;
 
     public GameObject [] pages;
+    public int[] pagePerLevel;
+    private List<int> pageThresholds = new List<int>();
 
     public int currentPageNumber = 0;
-
-    public List<GameObject> flipped = new List<GameObject>();
-
-    public List<GameObject> notFlipped = new List<GameObject>();
 
     private bool isFlipping = false;
 
@@ -39,16 +37,15 @@ public class BookScript : MonoBehaviour
     public Button leftButton, rightButton;
 
     // Start is called before the first frame update
-    void Start()
-    {
+    void Start() {
         isBookLarge = false;
         transform.position = normalBookPositionPlaceholder.transform.position;
         normalBookScale = transform.localScale;
-        //page1.SetActive(false);
         foreach (GameObject page in pages){
             page.SetActive(false);
-            notFlipped.Add(page);
         }
+        pagePerLevel.Aggregate(0, (acc, x) => {pageThresholds.Add(acc); return acc+x;});
+        while (pageThresholds.Count < levelManager.levelCount) pageThresholds.Add(pageThresholds[pageThresholds.Count-1]);
 
         mainCamera = Camera.main;
 
@@ -56,15 +53,13 @@ public class BookScript : MonoBehaviour
         rightButton.gameObject.SetActive(false);
 
         pages[0].SetActive(true);
-        pages[1].SetActive(true);
         
     }
 
     // Update is called once per frame
-    void Update()
-    {
+    void Update() {
 
-        if (Input.GetMouseButtonDown(0) && !isBookLarge) {
+        if (Input.GetMouseButtonDown(1) && !isBookLarge) {
             transform.position = centerOfScreenPlaceholder.transform.position;      
             transform.localScale = new UnityEngine.Vector3 (100, 100, 9);
             isBookLarge = true;
@@ -72,7 +67,7 @@ public class BookScript : MonoBehaviour
             rightButton.gameObject.SetActive(true);
             Cursor.visible = true;
         }
-        else if (Input.GetMouseButtonDown(1) && isBookLarge) {
+        else if (Input.GetMouseButtonDown(1) && isBookLarge && !isFlipping) {
             transform.position = normalBookPositionPlaceholder.transform.position;
             transform.localScale = normalBookScale;
             isBookLarge = false;
@@ -110,96 +105,41 @@ public class BookScript : MonoBehaviour
             }*/
     }
 
-    public void onFlip2(){
+    //Move to next page
+    public void change_book_state_right_button() {
+        //If not already flipping and not on final page
+        if (!isFlipping && currentPageNumber < pageThresholds[(int) levelManager.currentLevel]){
+            //Start animation
+            isFlipping = true;
+            pages[currentPageNumber].GetComponent<Animator>().SetTrigger("move_forward_a_page");
+            //Turn on next page
+            pages[currentPageNumber + 1].SetActive(true);
+            //Record new page number
+            currentPageNumber += 1;
+        }
+    }
+    public void onFlip2() {
+        //If need to disable previous page afterwards, do it
         if(currentPageNumber >= 2) pages[currentPageNumber - 2].SetActive(false);
         isFlipping = false;
     }
 
-    public void onUnFlip2(){
+    //Move to previous page
+    public void change_book_state_left_button() {
+        //If not already flipping and not on cover
+        if (!isFlipping && currentPageNumber > 0){
+            //Start animation
+            isFlipping = true;
+            pages[currentPageNumber-1].GetComponent<Animator>().SetTrigger("move_back_a_page");
+            //Turn on previous page
+            if (currentPageNumber > 1) pages[currentPageNumber - 2].SetActive(true);
+            //Record new page number
+            currentPageNumber -= 1;
+        }
+    }
+    public void onUnFlip2() {
+        //Turn off next page (that you just flipped from)
         pages[currentPageNumber + 1].SetActive(false);
         isFlipping = false;
-    }
-
-    public void change_book_state_right_button(){
-        int currentLevelCap = (int) levelManager.GetComponent<LEVEL_MANAGER>().currentLevel;
-
-        void onFlip1(){
-            GameObject currentPage = notFlipped.ElementAt(0);
-            notFlipped.RemoveAt(0);
-
-            flipped.Insert(0, currentPage);
-
-            currentPage.GetComponent<Animator>().SetTrigger("move_forward_a_page");
-
-            pages[currentPageNumber + 1].SetActive(true);
-
-            currentPageNumber += 1;
-
-        }
-
-        void onUnFlip1(){
-
-            GameObject currentPage = flipped.ElementAt(0);
-            flipped.RemoveAt(0);
-
-            notFlipped.Insert(0, currentPage);
-
-            currentPage.GetComponent<Animator>().SetTrigger("move_back_a_page");
-
-            if (currentPageNumber >= 2){
-                pages[currentPageNumber - 2].SetActive(true);
-            }
-
-            currentPageNumber -= 1;
-        }
-
-        if (isBookLarge && !isFlipping) {
-            if (currentPageNumber <= currentLevelCap){
-                    isFlipping = true;
-                    onFlip1();
-
-            }
-        }
-    }
-
-
-
-    public void change_book_state_left_button(){
-        int currentLevelCap = (int) levelManager.GetComponent<LEVEL_MANAGER>().currentLevel;
-
-        void onFlip1(){
-            GameObject currentPage = notFlipped.ElementAt(0);
-            notFlipped.RemoveAt(0);
-
-            flipped.Insert(0, currentPage);
-
-            currentPage.GetComponent<Animator>().SetTrigger("move_forward_a_page");
-
-            pages[currentPageNumber + 1].SetActive(true);
-
-            currentPageNumber += 1;
-
-        }
-
-        void onUnFlip1(){
-
-            GameObject currentPage = flipped.ElementAt(0);
-            flipped.RemoveAt(0);
-
-            notFlipped.Insert(0, currentPage);
-
-            currentPage.GetComponent<Animator>().SetTrigger("move_back_a_page");
-
-            if (currentPageNumber >= 2){
-                pages[currentPageNumber - 2].SetActive(true);
-            }
-
-            currentPageNumber -= 1;
-        }
-
-        if (currentPageNumber > 0){
-                isFlipping = true;
-                onUnFlip1();
-        }
     }
 }

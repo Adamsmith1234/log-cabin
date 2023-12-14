@@ -5,7 +5,7 @@ using UnityEngine;
 public class LEVEL_MANAGER : MonoBehaviour
 {
 
-    private int levelCount = 4;
+    public int levelCount = 4;
 
     public GameObject book;
     public enum levels { // ADD NEW VALUES WHEN ADDING NEW LEVELS
