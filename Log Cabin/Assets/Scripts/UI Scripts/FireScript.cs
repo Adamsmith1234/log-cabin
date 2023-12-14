@@ -98,26 +98,8 @@ public class FireScript : MonoBehaviour
         woodInventoryUI[(int) fuelType].GetComponent<Text>().text = player.GetComponent<Player>().woodInventory[(int) fuelType].ToString();
     }
     public void pickUpFuel(fuels fuelType) {
-        if ((int) fuelType == 0){
-            woodAudioSource.clip = tinderSoundClip;
-            woodAudioSource.Play();
-        }
-        if ((int) fuelType == 1){
-            woodAudioSource.clip = kindlingSoundClip;
-            woodAudioSource.Play();
-        }
-        if ((int) fuelType == 2){
-            woodAudioSource.clip = smallStickSoundClip;
-            woodAudioSource.Play();
-        }
-        if ((int) fuelType == 3){
-            woodAudioSource.clip = largeStickSoundClip;
-            woodAudioSource.Play();
-        }
-        if ((int) fuelType == 4){
-            woodAudioSource.clip = logSoundClip;
-            woodAudioSource.Play();
-        }
+        woodAudioSource.clip = woodSounds[(int) fuelType];
+        woodAudioSource.Play();
         woodInventoryUI[(int) fuelType].GetComponent<Text>().text = player.GetComponent<Player>().woodInventory[(int) fuelType].ToString();
     }
 

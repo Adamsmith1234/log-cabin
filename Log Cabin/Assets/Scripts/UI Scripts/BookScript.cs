@@ -100,6 +100,8 @@ public class BookScript : MonoBehaviour
     }
 
     public void openBook(bool pauseTime = false) {
+        OtherObjectsAudioSource.clip = clickOnBookClip;
+        OtherObjectsAudioSource.Play();
         transform.position = centerOfScreenPlaceholder.transform.position;      
         transform.localScale = new UnityEngine.Vector3 (100, 100, 9);
         isBookLarge = true;
@@ -109,6 +111,8 @@ public class BookScript : MonoBehaviour
     }
 
     public void closeBook() {
+        OtherObjectsAudioSource.clip = clickOnBookClip;
+        OtherObjectsAudioSource.Play();
         transform.position = normalBookPositionPlaceholder.transform.position;
         transform.localScale = normalBookScale;
         isBookLarge = false;
