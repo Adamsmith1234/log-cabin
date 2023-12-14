@@ -1128,8 +1128,6 @@ MonoBehaviour:
   - {fileID: 7579869187408868421}
   pagePerLevel: 
   currentPageNumber: 0
-  flipped: []
-  notFlipped: []
   leftButton: {fileID: 8135747753193246577}
   rightButton: {fileID: 1198348798170727597}
 --- !u!1 &3371603925248114267
@@ -2124,7 +2122,7 @@ Animator:
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 7e1c5a109e8804a7793d0932785bc226, type: 2}
   m_CullingMode: 0
-  m_UpdateMode: 0
+  m_UpdateMode: 2
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0

@@ -13,6 +13,7 @@ public class RealWorldPage : MonoBehaviour
     public TextMeshProUGUI pickUpPageText;
 
     bool isOverlappingPlayer = false;
+    public BookScript book;
     // Start is called before the first frame update
     void Start()
     {
@@ -30,6 +31,7 @@ public class RealWorldPage : MonoBehaviour
                 levelManager.GetComponent<LEVEL_MANAGER>().levelUp();
                 Destroy(gameObject);
                 pickUpPageText.enabled = false;
+                book.openBook(true);
             }
         }
         else {

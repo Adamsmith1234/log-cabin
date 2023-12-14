@@ -59,21 +59,11 @@ public class BookScript : MonoBehaviour
     // Update is called once per frame
     void Update() {
 
-        if (Input.GetMouseButtonDown(1) && !isBookLarge) {
-            transform.position = centerOfScreenPlaceholder.transform.position;      
-            transform.localScale = new UnityEngine.Vector3 (100, 100, 9);
-            isBookLarge = true;
-            leftButton.gameObject.SetActive(true);
-            rightButton.gameObject.SetActive(true);
-            Cursor.visible = true;
+        if (Input.GetKeyDown(KeyCode.Mouse1) && !isBookLarge) {
+            openBook();
         }
-        else if (Input.GetMouseButtonDown(1) && isBookLarge && !isFlipping) {
-            transform.position = normalBookPositionPlaceholder.transform.position;
-            transform.localScale = normalBookScale;
-            isBookLarge = false;
-            leftButton.gameObject.SetActive(false);
-            rightButton.gameObject.SetActive(false);
-            Cursor.visible = false;
+        else if (Input.GetKeyDown(KeyCode.Mouse1) && isBookLarge && !isFlipping) {
+            closeBook();
         }
             /*UnityEngine.Vector3 mousePosition = Input.mousePosition;
             Ray ray = mainCamera.ScreenPointToRay(mousePosition);
@@ -105,6 +95,25 @@ public class BookScript : MonoBehaviour
             }*/
     }
 
+    public void openBook(bool pauseTime = false) {
+        transform.position = centerOfScreenPlaceholder.transform.position;      
+        transform.localScale = new UnityEngine.Vector3 (100, 100, 9);
+        isBookLarge = true;
+        rightButtonsOn();
+        Cursor.visible = true;
+        if (pauseTime) Time.timeScale = 0f;
+    }
+
+    public void closeBook() {
+        transform.position = normalBookPositionPlaceholder.transform.position;
+        transform.localScale = normalBookScale;
+        isBookLarge = false;
+        leftButton.gameObject.SetActive(false);
+        rightButton.gameObject.SetActive(false);
+        Cursor.visible = false;
+        Time.timeScale = 1f;
+    }
+
     //Move to next page
     public void change_book_state_right_button() {
         //If not already flipping and not on final page
@@ -117,6 +126,7 @@ public class BookScript : MonoBehaviour
             //Record new page number
             currentPageNumber += 1;
         }
+        rightButtonsOn();
     }
     public void onFlip2() {
         //If need to disable previous page afterwards, do it
@@ -136,10 +146,17 @@ public class BookScript : MonoBehaviour
             //Record new page number
             currentPageNumber -= 1;
         }
+        rightButtonsOn();
     }
     public void onUnFlip2() {
         //Turn off next page (that you just flipped from)
         pages[currentPageNumber + 1].SetActive(false);
         isFlipping = false;
+    }
+
+    private void rightButtonsOn() {
+        Debug.Log(("Current Page:",currentPageNumber));
+        rightButton.gameObject.SetActive(currentPageNumber != pageThresholds[(int) levelManager.currentLevel]);
+        leftButton.gameObject.SetActive(currentPageNumber != 0);
     }
 }
