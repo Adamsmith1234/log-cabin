@@ -24,27 +24,13 @@ public class RealWorldPage : MonoBehaviour
     {   
         //Debug.Log(transform.position);
         //To account for the ground
-        if (overlappingCollisions.Count > 1){
-
-            foreach (Collision collision in overlappingCollisions){
-                if (collision.gameObject.tag == "Player"){
-                    isOverlappingPlayer = true;
-                }
-                else {
-                    isOverlappingPlayer = false;
-                }
+        if (isOverlappingPlayer){
+            pickUpPageText.enabled = true;
+            if (Input.GetKeyDown(KeyCode.Space)){
+                levelManager.GetComponent<LEVEL_MANAGER>().levelUp();
+                Destroy(gameObject);
+                pickUpPageText.enabled = false;
             }
-
-
-            if (isOverlappingPlayer){
-                pickUpPageText.enabled = true;
-                if (Input.GetKeyDown("space")){
-                    levelManager.GetComponent<LEVEL_MANAGER>().levelUp();
-                    Destroy(gameObject);
-                    pickUpPageText.enabled = false;
-                }
-            }
-
         }
         else {
             pickUpPageText.enabled = false;
@@ -54,14 +40,12 @@ public class RealWorldPage : MonoBehaviour
 
     private void OnCollisionEnter(Collision other)
     {
-        //Debug.Log("ENTERING");
         overlappingCollisions.Add(other);
-        Debug.Log(other.gameObject.tag);
+        if (other.gameObject.tag == "Player") isOverlappingPlayer = true;
     }
 
     private void OnCollisionExit(Collision other){
-        //Debug.Log("EXITING");
         overlappingCollisions.Remove(other);
-        Debug.Log("PLAYER OFF PAGE");
+        if (other.gameObject.tag == "Player") isOverlappingPlayer = false;
     }
 }

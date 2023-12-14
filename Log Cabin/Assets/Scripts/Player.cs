@@ -4,6 +4,7 @@ using UnityEngine;
 using TMPro;
 using System.Numerics;
 using UnityEngine.UI;
+using UnityEditor;
 
 public class Player : MonoBehaviour
 {
@@ -32,6 +33,8 @@ public class Player : MonoBehaviour
     public bool isWalking;
 
     public GameObject footstep;
+    public Camera playerCam;
+    public BookScript book;
 
     // Start is called before the first frame update
     void Start(){
@@ -41,6 +44,8 @@ public class Player : MonoBehaviour
         woodInventory = new int[] {0,0,0,0,0};
         isWalking = false;
         footstep.SetActive(false);
+        Debug.Log("ADD WALKING SOUND");
+        Cursor.visible = false;
     }
 
     // Update is called once per frame
@@ -61,10 +66,13 @@ public class Player : MonoBehaviour
         //transform.Rotate(0, turn, 0);
 
         float mouseX = turnSpeed * Input.GetAxis("Mouse X") * Time.deltaTime;
+        float mouseY = turnSpeed/2 * Input.GetAxis("Mouse Y") * Time.deltaTime;
 
         // Rotate the player based on the mouse input
-        transform.Rotate(0, mouseX, 0);
-
+        if (!book.isBookLarge) {
+            transform.Rotate(0, mouseX, 0);
+            playerCam.transform.Rotate(-mouseY,0,0);
+        }
     
 
     }
@@ -164,7 +172,6 @@ public class Player : MonoBehaviour
 
     void footstepSoundHandler(){
         if (isWalking){
-            Debug.Log("WALKING SOUND SHOULD BE PLAYING");
             footstep.SetActive(true);
         }
         else {

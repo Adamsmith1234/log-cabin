@@ -20,6 +20,7 @@ public class LEVEL_MANAGER : MonoBehaviour
     public GameObject campfire;
 
     public GameObject bear;
+    public GameObject player;
 
     void Start(){
         bear.SetActive(false);
@@ -49,5 +50,6 @@ public class LEVEL_MANAGER : MonoBehaviour
         if (((int) currentLevel -1) <2){
             LevelUIs[(int) currentLevel - 1].SetActive(true);
         }
+        if ((int) currentLevel == (int) levels.NEEDS_HEAT) player.GetComponent<Player>().updateWoodUI();
     }
 }

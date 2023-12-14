@@ -64,18 +64,31 @@ public class BookScript : MonoBehaviour
     void Update()
     {
 
-       if (Input.GetMouseButtonDown(0))
-       {
-           UnityEngine.Vector3 mousePosition = Input.mousePosition;
-           Ray ray = mainCamera.ScreenPointToRay(mousePosition);
-           if (Physics.Raycast(ray, out RaycastHit hit))
-           {
-               // Use the hit variable to determine what was clicked on.
-               GameObject clickedObject = hit.collider.gameObject;
+        if (Input.GetMouseButtonDown(0) && !isBookLarge) {
+            transform.position = centerOfScreenPlaceholder.transform.position;      
+            transform.localScale = new UnityEngine.Vector3 (100, 100, 9);
+            isBookLarge = true;
+            leftButton.gameObject.SetActive(true);
+            rightButton.gameObject.SetActive(true);
+            Cursor.visible = true;
+        }
+        else if (Input.GetMouseButtonDown(1) && isBookLarge) {
+            transform.position = normalBookPositionPlaceholder.transform.position;
+            transform.localScale = normalBookScale;
+            isBookLarge = false;
+            leftButton.gameObject.SetActive(false);
+            rightButton.gameObject.SetActive(false);
+            Cursor.visible = false;
+        }
+            /*UnityEngine.Vector3 mousePosition = Input.mousePosition;
+            Ray ray = mainCamera.ScreenPointToRay(mousePosition);
+            if (Physics.Raycast(ray, out RaycastHit hit)) {
+                // Use the hit variable to determine what was clicked on.
+                GameObject clickedObject = hit.collider.gameObject;
 
-               Debug.Log("Clicked on " + clickedObject.tag);
+                Debug.Log("Clicked on " + clickedObject.tag);
 
-               if (clickedObject.tag == "Book"){
+                if (clickedObject.tag == "Book"){
                     if (isBookLarge){
                         transform.position = normalBookPositionPlaceholder.transform.position;
                         transform.localScale = normalBookScale;
@@ -94,9 +107,7 @@ public class BookScript : MonoBehaviour
 
                     //change_book_state_handler();
                 }
-            }
-       }
-        
+            }*/
     }
 
     public void onFlip2(){
