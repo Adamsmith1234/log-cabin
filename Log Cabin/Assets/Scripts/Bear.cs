@@ -16,7 +16,17 @@ public class Bear : MonoBehaviour
     bool debugWalkDirection = false; 
 
     public List<UnityEngine.Collision> overlappingColliders = new List<UnityEngine.Collision>();
+
+    public AudioSource bearAudioSource;
+
+    public AudioClip bearGrowl;
+    public GameObject footstep;
     
+    void Start(){
+        bearAudioSource.clip = (bearGrowl);
+        bearAudioSource.Play();
+        footstep.SetActive(true);
+    }
 
     void Update()
     {

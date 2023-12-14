@@ -36,6 +36,12 @@ public class Player : MonoBehaviour
     public Camera playerCam;
     public BookScript book;
 
+    public bool isNextToFire;
+
+    public AudioSource OtherObjectsAudioSource;
+    
+    public AudioClip eatSoundClip;
+
     // Start is called before the first frame update
     void Start(){
         Rigidbody rb = GetComponent<Rigidbody>();
@@ -44,8 +50,8 @@ public class Player : MonoBehaviour
         woodInventory = new int[] {0,0,0,0,0};
         isWalking = false;
         footstep.SetActive(false);
-        Debug.Log("ADD WALKING SOUND");
         Cursor.visible = false;
+        isNextToFire = false;
     }
 
     // Update is called once per frame
@@ -120,6 +126,8 @@ public class Player : MonoBehaviour
                 if (overlappingColliders[0].gameObject.tag == "Blueberry"){
                     pickUpText.enabled = true;
                     if (Input.GetKeyDown(KeyCode.Space)){
+                        OtherObjectsAudioSource.clip = eatSoundClip;
+                        OtherObjectsAudioSource.Play();
                         animation_controller.SetTrigger("is_picking_up");
                         animation_controller.SetTrigger("done_picking_up");
                         hungerUI.GetComponent<HungerScript>().eatBlueberry();
@@ -130,6 +138,8 @@ public class Player : MonoBehaviour
                 else if (overlappingColliders[0].gameObject.tag == "Baneberry"){
                     pickUpText.enabled = true;
                     if (Input.GetKeyDown(KeyCode.Space)){
+                        OtherObjectsAudioSource.clip = eatSoundClip;
+                        OtherObjectsAudioSource.Play();
                         animation_controller.SetTrigger("is_picking_up");
                         animation_controller.SetTrigger("done_picking_up");
                         hungerUI.GetComponent<HungerScript>().eatBaneberry();
@@ -137,7 +147,7 @@ public class Player : MonoBehaviour
                         overlappingColliders.RemoveAt(0);
                     }
                 } 
-                else {
+                else if (overlappingColliders[0].gameObject.GetComponent<WoodPickup>() != null) {
                     WoodSpawner.GetComponent<WoodSpawnHandler>().restorePoint(overlappingColliders[0].gameObject.GetComponent<WoodPickup>());
                     woodInventory[(int) overlappingColliders[0].gameObject.GetComponent<WoodPickup>().type] += 1;
                     fireUI.GetComponent<FireScript>().pickUpFuel(overlappingColliders[0].gameObject.GetComponent<WoodPickup>().type);
@@ -162,11 +172,17 @@ public class Player : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         //Debug.Log("ENTERING");
+        if (other.gameObject.tag == "CampFire"){
+            isNextToFire = true;
+        }
         overlappingColliders.Add(other);
     }
 
     private void OnTriggerExit(Collider other){
         //Debug.Log("EXITING");
+        if (other.gameObject.tag == "CampFire"){
+            isNextToFire = false;
+        }
         overlappingColliders.Remove(other);
     }
 

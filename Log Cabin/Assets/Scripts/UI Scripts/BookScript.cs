@@ -36,6 +36,10 @@ public class BookScript : MonoBehaviour
 
     public Button leftButton, rightButton;
 
+    public AudioSource OtherObjectsAudioSource;
+
+    public AudioClip turnPageClip, clickOnBookClip;
+
     // Start is called before the first frame update
     void Start() {
         isBookLarge = false;
@@ -121,6 +125,8 @@ public class BookScript : MonoBehaviour
             //Start animation
             isFlipping = true;
             pages[currentPageNumber].GetComponent<Animator>().SetTrigger("move_forward_a_page");
+            OtherObjectsAudioSource.clip = turnPageClip;
+            OtherObjectsAudioSource.Play();
             //Turn on next page
             pages[currentPageNumber + 1].SetActive(true);
             //Record new page number
@@ -141,6 +147,8 @@ public class BookScript : MonoBehaviour
             //Start animation
             isFlipping = true;
             pages[currentPageNumber-1].GetComponent<Animator>().SetTrigger("move_back_a_page");
+            OtherObjectsAudioSource.clip = turnPageClip;
+            OtherObjectsAudioSource.Play();
             //Turn on previous page
             if (currentPageNumber > 1) pages[currentPageNumber - 2].SetActive(true);
             //Record new page number
