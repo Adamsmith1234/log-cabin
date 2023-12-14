@@ -16,6 +16,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: RealWorldPage
       objectReference: {fileID: 0}
+    - target: {fileID: 2385761601829729459, guid: 7d7e1fde7264d48c5aca5a65d0cdb0b5, type: 3}
+      propertyPath: m_TagString
+      value: Page
+      objectReference: {fileID: 0}
     - target: {fileID: 2607090623065246892, guid: 7d7e1fde7264d48c5aca5a65d0cdb0b5, type: 3}
       propertyPath: m_text
       value: -----------------------------------
@@ -56,6 +60,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7095554936561799323, guid: 7d7e1fde7264d48c5aca5a65d0cdb0b5, type: 3}
       propertyPath: m_Center.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7095554936561799323, guid: 7d7e1fde7264d48c5aca5a65d0cdb0b5, type: 3}
+      propertyPath: m_IsTrigger
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7915346282670934080, guid: 7d7e1fde7264d48c5aca5a65d0cdb0b5, type: 3}
@@ -118,6 +126,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 2385761601829729459, guid: 7d7e1fde7264d48c5aca5a65d0cdb0b5, type: 3}
       insertIndex: -1
       addedObject: {fileID: 5620346858772317081}
+    - targetCorrespondingSourceObject: {fileID: 2385761601829729459, guid: 7d7e1fde7264d48c5aca5a65d0cdb0b5, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5805342611941039912}
   m_SourcePrefab: {fileID: 100100000, guid: 7d7e1fde7264d48c5aca5a65d0cdb0b5, type: 3}
 --- !u!1 &5889369414302854756 stripped
 GameObject:
@@ -151,3 +162,17 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &5805342611941039912
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5889369414302854756}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10903644b28f7468083a5bf931824628, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  levelManager: {fileID: 0}
+  pickUpPageText: {fileID: 0}

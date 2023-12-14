@@ -30,7 +30,7 @@ public class LEVEL_MANAGER : MonoBehaviour
         if (currentLevel >= levels.NEEDS_FOOD) LevelUIs[1].GetComponent<HungerScript>().updateSystem(Time.deltaTime);
         if (currentLevel >= levels.NEEDS_BEAR) bear.SetActive(true);
     }
-    void levelUp() { // INCREMENTS CURRENT LEVEL WHEN POSSIBLE. TURNS ON THE RELEVANT UI COMPONENT
+    public void levelUp() { // INCREMENTS CURRENT LEVEL WHEN POSSIBLE. TURNS ON THE RELEVANT UI COMPONENT
         if ((int) currentLevel == levelCount-1) {
             Debug.Log("We haven't made the next level yet.");
             return;

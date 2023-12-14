@@ -14,6 +14,7 @@ TagManager:
   - Baneberry
   - Cave
   - Book
+  - Page
   layers:
   - Default
   - TransparentFX
@@ -22,7 +23,7 @@ TagManager:
   - Water
   - UI
   - Always on Top
-  - 
+  - Camera
   - 
   - 
   - 

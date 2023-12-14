@@ -5,6 +5,7 @@ using TMPro;
 using System.Numerics;
 using Unity.VisualScripting;
 using System.Linq;
+using UnityEngine.UI;
 
 public class BookScript : MonoBehaviour
 {
@@ -35,6 +36,8 @@ public class BookScript : MonoBehaviour
 
     Camera mainCamera;
 
+    public Button leftButton, rightButton;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -49,7 +52,11 @@ public class BookScript : MonoBehaviour
 
         mainCamera = Camera.main;
 
+        leftButton.gameObject.SetActive(false);
+        rightButton.gameObject.SetActive(false);
+
         pages[0].SetActive(true);
+        pages[1].SetActive(true);
         
     }
 
@@ -73,15 +80,19 @@ public class BookScript : MonoBehaviour
                         transform.position = normalBookPositionPlaceholder.transform.position;
                         transform.localScale = normalBookScale;
                         isBookLarge = false;
+                        leftButton.gameObject.SetActive(false);
+                        rightButton.gameObject.SetActive(false);
                     }
 
                     else {
                         transform.position = centerOfScreenPlaceholder.transform.position;      
                         transform.localScale = new UnityEngine.Vector3 (100, 100, 9);
                         isBookLarge = true;
+                        leftButton.gameObject.SetActive(true);
+                        rightButton.gameObject.SetActive(true);
                     }
 
-                    change_book_state_handler();
+                    //change_book_state_handler();
                 }
             }
        }
@@ -98,7 +109,7 @@ public class BookScript : MonoBehaviour
         isFlipping = false;
     }
 
-    public void change_book_state_handler(){
+    public void change_book_state_right_button(){
         int currentLevelCap = (int) levelManager.GetComponent<LEVEL_MANAGER>().currentLevel;
 
         void onFlip1(){
@@ -132,21 +143,52 @@ public class BookScript : MonoBehaviour
         }
 
         if (isBookLarge && !isFlipping) {
-            if (currentPageNumber < currentLevelCap){
-                if (Input.GetKeyDown("k")){
+            if (currentPageNumber <= currentLevelCap){
                     isFlipping = true;
                     onFlip1();
 
-                }
+            }
+        }
+    }
+
+
+
+    public void change_book_state_left_button(){
+        int currentLevelCap = (int) levelManager.GetComponent<LEVEL_MANAGER>().currentLevel;
+
+        void onFlip1(){
+            GameObject currentPage = notFlipped.ElementAt(0);
+            notFlipped.RemoveAt(0);
+
+            flipped.Insert(0, currentPage);
+
+            currentPage.GetComponent<Animator>().SetTrigger("move_forward_a_page");
+
+            pages[currentPageNumber + 1].SetActive(true);
+
+            currentPageNumber += 1;
+
+        }
+
+        void onUnFlip1(){
+
+            GameObject currentPage = flipped.ElementAt(0);
+            flipped.RemoveAt(0);
+
+            notFlipped.Insert(0, currentPage);
+
+            currentPage.GetComponent<Animator>().SetTrigger("move_back_a_page");
+
+            if (currentPageNumber >= 2){
+                pages[currentPageNumber - 2].SetActive(true);
             }
 
-            if (currentPageNumber > 0){
-                if (Input.GetKeyDown("j")){
-                    isFlipping = true;
-                    onUnFlip1();
+            currentPageNumber -= 1;
+        }
 
-                } 
-            }
+        if (currentPageNumber > 0){
+                isFlipping = true;
+                onUnFlip1();
         }
     }
 }
