@@ -12,6 +12,8 @@ TagManager:
   - Blueberry
   - Large Stick
   - Baneberry
+  - Cave
+  - Book
   layers:
   - Default
   - TransparentFX

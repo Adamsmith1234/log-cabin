@@ -33,6 +33,8 @@ public class BookScript : MonoBehaviour
 
     private bool isFlipping = false;
 
+    Camera mainCamera;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -45,6 +47,8 @@ public class BookScript : MonoBehaviour
             notFlipped.Add(page);
         }
 
+        mainCamera = Camera.main;
+
         pages[0].SetActive(true);
         
     }
@@ -52,23 +56,35 @@ public class BookScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown("b")){
-            if (isBookLarge){
-                transform.position = normalBookPositionPlaceholder.transform.position;
-                transform.localScale = normalBookScale;
-                isBookLarge = false;
+
+       if (Input.GetMouseButtonDown(0))
+       {
+           UnityEngine.Vector3 mousePosition = Input.mousePosition;
+           Ray ray = mainCamera.ScreenPointToRay(mousePosition);
+           if (Physics.Raycast(ray, out RaycastHit hit))
+           {
+               // Use the hit variable to determine what was clicked on.
+               GameObject clickedObject = hit.collider.gameObject;
+
+               Debug.Log("Clicked on " + clickedObject.tag);
+
+               if (clickedObject.tag == "Book"){
+                    if (isBookLarge){
+                        transform.position = normalBookPositionPlaceholder.transform.position;
+                        transform.localScale = normalBookScale;
+                        isBookLarge = false;
+                    }
+
+                    else {
+                        transform.position = centerOfScreenPlaceholder.transform.position;      
+                        transform.localScale = new UnityEngine.Vector3 (100, 100, 9);
+                        isBookLarge = true;
+                    }
+
+                    change_book_state_handler();
+                }
             }
-
-            else {
-                transform.position = centerOfScreenPlaceholder.transform.position;      
-                transform.localScale = new UnityEngine.Vector3 (100, 100, 9);
-                isBookLarge = true;
-            }
-            Debug.Log("New book position: " + transform.position);
-
-        }
-
-        change_book_state_handler();
+       }
         
     }
 

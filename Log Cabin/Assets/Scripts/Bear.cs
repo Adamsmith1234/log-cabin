@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Bear : MonoBehaviour
 {
@@ -14,13 +15,16 @@ public class Bear : MonoBehaviour
 
     bool debugWalkDirection = false; 
 
+    public List<UnityEngine.Collision> overlappingColliders = new List<UnityEngine.Collision>();
+    
+
     void Update()
     {
 
         var fireSize = fireUI.GetComponent<FireScript>().heat;
         Vector3 adjustedCavePosition = cave.transform.position;
 
-        adjustedCavePosition[0] -= 1;
+        adjustedCavePosition[0] -= 3;
         adjustedCavePosition[1] += 2;
         adjustedCavePosition[2] += 11;
 
@@ -28,9 +32,9 @@ public class Bear : MonoBehaviour
 
         // Calculate movement direction
         Vector3 dirToPlayer = player.transform.position - transform.position;
-        
+
         // Move the NPC
-        if (fireSize > 6){
+        if (fireSize > 3){
             MoveNPC(dirToCave);
             //Debug.Log("Move toward " + dirToCave);
         }
@@ -43,6 +47,21 @@ public class Bear : MonoBehaviour
 
     void MoveNPC(Vector3 movementDirection)
     {
+        //Debug.Log(movementDirection);
+
+        //If bear has reached it's target
+        if (overlappingColliders.Count > 0){
+            
+            //If its the cave, just stop moving for now
+            if (overlappingColliders[0].gameObject.tag == "Cave"){
+                if (movementDirection[0] < 3 && movementDirection[2] < 3){
+                    animationController.SetBool("is_walking", false);
+                    return;
+                }
+            }
+            
+
+        }
 
         // Calculate the rotation to face the player
         Quaternion lookRot = Quaternion.LookRotation(movementDirection);
@@ -60,5 +79,19 @@ public class Bear : MonoBehaviour
 
         // Set walking animation
         animationController.SetBool("is_walking", true);
+    }
+
+    private void OnCollisionEnter(Collision other){
+        Debug.Log(other.gameObject.tag);
+
+        //If the bears touches the player, they lose
+        if (other.gameObject.tag == "Player"){
+            SceneManager.LoadScene("YouLoseScreen");
+        }
+    }
+
+    private void OnCollisionExit(Collision other){
+        //Debug.Log("EXITING");
+        overlappingColliders.Remove(other);
     }
 }

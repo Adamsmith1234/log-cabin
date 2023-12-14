@@ -172,6 +172,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 3909a227166d84330ab5bcf3b26681fa, type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
     - target: {fileID: 5866666021909216657, guid: 3909a227166d84330ab5bcf3b26681fa, type: 3}
       propertyPath: m_Controller
       value: 
@@ -260,18 +264,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animation_controller: {fileID: 3583014351916005231}
+  book_animation_controller: {fileID: 0}
   speed: 20
   turnSpeed: 50
   woodCount: 0
-  woodCountText: {fileID: 0}
   pickUpText: {fileID: 0}
-  centerOfScreenPlaceholder: {fileID: 0}
-  normalBookPositionPlaceholder: {fileID: 0}
-  book: {fileID: 0}
-  viewportCamera: {fileID: 0}
-  isBookLarge: 0
-  normalBookScale: {x: 0, y: 0, z: 0}
+  WoodSpawner: {fileID: 0}
   overlappingColliders: []
+  woodInventory: 
+  fireUI: {fileID: 0}
+  hungerUI: {fileID: 0}
 --- !u!136 &1929593562835067649
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -291,7 +293,7 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.0019297756
+  m_Radius: 0.004583387
   m_Height: 0.023060435
   m_Direction: 1
-  m_Center: {x: -3.2034827e-13, y: 0.0113559915, z: -0.00012585819}
+  m_Center: {x: 0.00056306244, y: 0.0113559915, z: -0.0016952037}

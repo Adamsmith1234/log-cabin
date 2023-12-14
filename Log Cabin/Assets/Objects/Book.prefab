@@ -783,7 +783,7 @@ GameObject:
   - component: {fileID: 7127617518224759768}
   m_Layer: 0
   m_Name: Book
-  m_TagString: Untagged
+  m_TagString: Book
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1750,7 +1750,7 @@ GameObject:
   - component: {fileID: 5127746044284021680}
   m_Layer: 0
   m_Name: Cover
-  m_TagString: Untagged
+  m_TagString: Book
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1995,7 +1995,7 @@ GameObject:
   - component: {fileID: 5969916984228429923}
   m_Layer: 0
   m_Name: Back Cover
-  m_TagString: Untagged
+  m_TagString: Book
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2414,6 +2414,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Page2
       objectReference: {fileID: 0}
+    - target: {fileID: 2385761601829729459, guid: 7d7e1fde7264d48c5aca5a65d0cdb0b5, type: 3}
+      propertyPath: m_TagString
+      value: Book
+      objectReference: {fileID: 0}
     - target: {fileID: 2607090623065246892, guid: 7d7e1fde7264d48c5aca5a65d0cdb0b5, type: 3}
       propertyPath: m_text
       value: 'Page 2: Maintaining a Fire'
@@ -2509,6 +2513,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Page1
       objectReference: {fileID: 0}
+    - target: {fileID: 2385761601829729459, guid: 7d7e1fde7264d48c5aca5a65d0cdb0b5, type: 3}
+      propertyPath: m_TagString
+      value: Book
+      objectReference: {fileID: 0}
     - target: {fileID: 3216259502057185702, guid: 7d7e1fde7264d48c5aca5a65d0cdb0b5, type: 3}
       propertyPath: Book
       value: 
@@ -2579,6 +2587,10 @@ PrefabInstance:
     - target: {fileID: 2385761601829729459, guid: 7d7e1fde7264d48c5aca5a65d0cdb0b5, type: 3}
       propertyPath: m_Name
       value: Page3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2385761601829729459, guid: 7d7e1fde7264d48c5aca5a65d0cdb0b5, type: 3}
+      propertyPath: m_TagString
+      value: Book
       objectReference: {fileID: 0}
     - target: {fileID: 2607090623065246892, guid: 7d7e1fde7264d48c5aca5a65d0cdb0b5, type: 3}
       propertyPath: m_text
@@ -2656,6 +2668,10 @@ PrefabInstance:
     - target: {fileID: 2385761601829729459, guid: 7d7e1fde7264d48c5aca5a65d0cdb0b5, type: 3}
       propertyPath: m_Name
       value: Page4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2385761601829729459, guid: 7d7e1fde7264d48c5aca5a65d0cdb0b5, type: 3}
+      propertyPath: m_TagString
+      value: Book
       objectReference: {fileID: 0}
     - target: {fileID: 2607090623065246892, guid: 7d7e1fde7264d48c5aca5a65d0cdb0b5, type: 3}
       propertyPath: m_text

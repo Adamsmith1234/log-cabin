@@ -13,7 +13,7 @@ public class Player : MonoBehaviour
     public Animator book_animation_controller;
 
     public float speed = 5f; 
-    public float turnSpeed = 5f;
+    public float turnSpeed = 500f;
 
     public int woodCount = 0;
 
@@ -41,7 +41,7 @@ public class Player : MonoBehaviour
         // Get input from the player
         float verticalInput = Input.GetAxis("Vertical");
         float horizontalInput = Input.GetAxis("Horizontal");
-        float turn = horizontalInput * turnSpeed * Time.deltaTime;
+        //float turn = horizontalInput * turnSpeed * Time.deltaTime;
 
         MovePlayerHandler();
         pickUpHandler();
@@ -49,7 +49,14 @@ public class Player : MonoBehaviour
         Rigidbody rb = GetComponent<Rigidbody>();
         //rb.MovePosition(transform.forward * speed * Time.deltaTime * verticalInput);
         rb.MovePosition(transform.forward * Time.deltaTime * speed * verticalInput + transform.position);
-        transform.Rotate(0, turn, 0);
+        //transform.Rotate(0, turn, 0);
+
+        float mouseX = turnSpeed * Input.GetAxis("Mouse X") * Time.deltaTime;
+
+        // Rotate the player based on the mouse input
+        transform.Rotate(0, mouseX, 0);
+
+    
 
     }
 
@@ -115,14 +122,20 @@ public class Player : MonoBehaviour
 
             pickUpText.enabled = true;
 
-            if (Input.GetKeyDown(KeyCode.Space)){
-                animation_controller.SetTrigger("is_picking_up");
                 Debug.Log("Picked up one: " + overlappingColliders[0].gameObject.tag);
                 if (overlappingColliders[0].gameObject.tag == "Blueberry"){
-                    hungerUI.GetComponent<HungerScript>().eatBlueberry();;
+                    if (Input.GetKeyDown(KeyCode.Space)){
+                        animation_controller.SetTrigger("is_picking_up");
+                        animation_controller.SetTrigger("done_picking_up");
+                        hungerUI.GetComponent<HungerScript>().eatBlueberry();
+                    }
                 }
                 else if (overlappingColliders[0].gameObject.tag == "Baneberry"){
-                    hungerUI.GetComponent<HungerScript>().eatBaneberry();;
+                    if (Input.GetKeyDown(KeyCode.Space)){
+                        animation_controller.SetTrigger("is_picking_up");
+                        animation_controller.SetTrigger("done_picking_up");
+                        hungerUI.GetComponent<HungerScript>().eatBaneberry();
+                    }
                 } else {
                     WoodSpawner.GetComponent<WoodSpawnHandler>().restorePoint(overlappingColliders[0].gameObject.GetComponent<WoodPickup>());
                     woodInventory[(int) overlappingColliders[0].gameObject.GetComponent<WoodPickup>().type] += 1;
@@ -132,8 +145,7 @@ public class Player : MonoBehaviour
 
                 Destroy(overlappingColliders[0].gameObject);
                 overlappingColliders.RemoveAt(0);
-                animation_controller.SetTrigger("done_picking_up");
-            }
+            
         }
         else {
             pickUpText.enabled = false;
