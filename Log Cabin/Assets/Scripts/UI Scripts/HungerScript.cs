@@ -17,7 +17,7 @@ public class HungerScript : MonoBehaviour
         }
     }
     public void updateSystem(float deltaTime) {
-        stomach.percentFilled -= deltaTime/200;
+        stomach.percentFilled -= deltaTime/100;
     }
 
     public void eatBlueberry(){

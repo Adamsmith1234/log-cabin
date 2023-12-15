@@ -44,7 +44,7 @@ public class Bear : MonoBehaviour
         Vector3 dirToPlayer = player.transform.position - transform.position;
 
         // Move the NPC
-        if (fireSize > 3){
+        if (fireSize > 8){
             MoveNPC(dirToCave);
             //Debug.Log("Move toward " + dirToCave);
         }
