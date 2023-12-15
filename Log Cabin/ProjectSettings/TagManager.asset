@@ -17,6 +17,7 @@ TagManager:
   - Page
   - CampFire
   - LeafPile
+  - Helicopter
   layers:
   - Default
   - TransparentFX

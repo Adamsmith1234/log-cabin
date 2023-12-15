@@ -40,7 +40,7 @@ public class LEVEL_MANAGER : MonoBehaviour
         // REPLACE WITH MORE COMPREHENSIVE METHOD THAT SPACES OUT THE UI ON SCREEN IF NECESSARY
         LevelUIs[(int) currentLevel - 1].SetActive(true);
         
-        if ((int) currentLevel == (int) levels.NEEDS_HEAT) player.GetComponent<Player>().updateWoodUI();
-        //if (currentLevel == levels.NEEDS_BEAR) bear.SetActive(true);
+        if (currentLevel == levels.NEEDS_HEAT) player.GetComponent<Player>().updateWoodUI();
+        if (currentLevel == levels.NEEDS_RESCUE) LevelUIs[3].GetComponent<LeafScript>().leavesOn = true;
     }
 }

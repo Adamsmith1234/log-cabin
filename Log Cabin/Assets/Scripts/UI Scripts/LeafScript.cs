@@ -4,19 +4,28 @@ using UnityEngine;
 
 public class LeafScript : MonoBehaviour
 {
-    public int leavesNeeded = 10;
+    public int leavesNeeded = 1;
     int leavesPickedUp = 0;
     public BarGauge leafMeter;
+    public bool leavesOn = false;
+
+    public bool full {
+        get {return leavesPickedUp >= leavesNeeded;}
+    }
 
     private void Start() {
         leafMeter.percentFilled = 0f;
     }
 
     public void pickUpLeaf() {
-        Debug.Log("BOOM");
-        if (leavesPickedUp < leavesNeeded) {
+        if (leavesOn && leavesPickedUp < leavesNeeded) {
             leavesPickedUp += 1;
-            leafMeter.percentFilled = leavesPickedUp/leavesNeeded;
+            leafMeter.percentFilled = (float) leavesPickedUp/(float) leavesNeeded;
         }
+    }
+
+    public void clearLeaves() {
+        leavesPickedUp = 0;
+        leafMeter.percentFilled = 0f;
     }
 }
