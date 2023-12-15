@@ -169,9 +169,11 @@ public class Player : MonoBehaviour
         }
     }
 
+    string[] woodUIKeys = new string[] {"Y: ","U: ","I: ","O: ","P: "};
+
     public void updateWoodUI() {
         for (int x = 0; x < 5; x++) {
-            fireUI.GetComponent<FireScript>().woodInventoryUI[x].GetComponent<Text>().text = woodInventory[x].ToString();
+            fireUI.GetComponent<FireScript>().woodInventoryUI[x].GetComponent<Text>().text = woodUIKeys[x] + woodInventory[x].ToString();
         }
     }
 

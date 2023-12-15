@@ -8,6 +8,7 @@ public class LeafScript : MonoBehaviour
     int leavesPickedUp = 0;
     public BarGauge leafMeter;
     public bool leavesOn = false;
+    public GameObject leafButton;
 
     public bool full {
         get {return leavesPickedUp >= leavesNeeded;}
@@ -22,6 +23,7 @@ public class LeafScript : MonoBehaviour
             leavesPickedUp += 1;
             leafMeter.percentFilled = (float) leavesPickedUp/(float) leavesNeeded;
         }
+        if (full) leafButton.SetActive(true);
     }
 
     public void clearLeaves() {

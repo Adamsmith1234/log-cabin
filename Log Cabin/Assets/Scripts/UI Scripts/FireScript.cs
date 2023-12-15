@@ -98,7 +98,7 @@ public class FireScript : MonoBehaviour
         woodAudioSource.Play();
         fuelAmounts[(int) fuelType] += 1;
         player.GetComponent<Player>().woodInventory[(int) fuelType] -= 1;
-        woodInventoryUI[(int) fuelType].GetComponent<Text>().text = player.GetComponent<Player>().woodInventory[(int) fuelType].ToString();
+        player.GetComponent<Player>().updateWoodUI();
     }
 
     public void addLeaves() {
@@ -113,7 +113,7 @@ public class FireScript : MonoBehaviour
     public void pickUpFuel(fuels fuelType) {
         woodAudioSource.clip = woodSounds[(int) fuelType];
         woodAudioSource.Play();
-        woodInventoryUI[(int) fuelType].GetComponent<Text>().text = player.GetComponent<Player>().woodInventory[(int) fuelType].ToString();
+        player.GetComponent<Player>().updateWoodUI();
     }
 
     public void fireSoundHandler(){
