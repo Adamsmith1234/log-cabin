@@ -12,22 +12,34 @@ public class WoodSpawnHandler : MonoBehaviour
     int[] numSpawned = new int[5];
     public GameObject[] fuelPrefabs = new GameObject[5];
 
+    public int numberOfEach = 30;
+
     private void Start() {
         foreach (PoissonWrapper spawner in GetComponents<PoissonWrapper>()) {
             emptyPoints[(int) spawner.type] = spawner.points;
         }
         for (int x = 0; x < 5; x++) {
-            if (fuelPrefabs[x] != null) spawnFuel((FireScript.fuels) x,10);
+            if (fuelPrefabs[x] != null) spawnFuel((FireScript.fuels) x, numberOfEach);
         }
     }
 
     private void spawnFuel(FireScript.fuels type, int numSpawns = 1) {
         for (int x = 0; x < numSpawns; x++) {
-            if (emptyPoints[(int) type].Count == 0) return;
+            if (emptyPoints[(int) type].Count == 0) return; 
+
             Vector3 spawnPoint = getEmptyPoint(type);
-            GameObject newFuel = Instantiate(fuelPrefabs[(int) type],spawnPoint+(Vector3.up * 10), Quaternion.identity);
-            newFuel.GetComponent<WoodPickup>().spawnPoint = spawnPoint;
-            newFuel.GetComponent<WoodPickup>().type = type;
+            RaycastHit hit; // 
+            if ((spawnPoint[2]<41 && spawnPoint[2] >-110) && (spawnPoint[0]>-153 && spawnPoint[0] < 47.036)){
+                if (Physics.Raycast(spawnPoint, -Vector3.up, out hit)){
+                    
+
+                    GameObject newFuel = Instantiate(fuelPrefabs[(int) type], (hit.point), Quaternion.identity);
+                    //Debug.DrawLine(transform.position, hit.point, Color.cyan);
+                    newFuel.GetComponent<WoodPickup>().spawnPoint = spawnPoint;
+                    newFuel.GetComponent<WoodPickup>().type = type;
+
+                }
+            }
         }
     }
 

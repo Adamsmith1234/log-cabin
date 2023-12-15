@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Numerics;
 using UnityEditor;
 using UnityEngine;
@@ -19,12 +20,12 @@ public class PoissonWrapper : MonoBehaviour
     public List<UnityEngine.Vector3> points = new List<UnityEngine.Vector3>();
 
     private void OnValidate() {
-        points = PoissonPoints.generatePoints(objectSize,maxAttempts,outerRadius,innerRadius,maxPoints);
+        points = PoissonPoints.generatePoints(objectSize,maxAttempts,outerRadius,innerRadius,maxPoints).Select(x => x + transform.position).ToList<UnityEngine.Vector3>();
     }
     private void OnDrawGizmosSelected() {
         Gizmos.color = color;
         foreach (UnityEngine.Vector3 point in points) {
-            Gizmos.DrawSphere(point + transform.position, gizmoRadius);
+            Gizmos.DrawSphere(point, gizmoRadius);
         }
         Gizmos.DrawWireSphere(transform.position,outerRadius+objectSize/2);
         Gizmos.DrawWireSphere(transform.position,innerRadius-objectSize/2);
