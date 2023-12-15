@@ -699,11 +699,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3f9b178ccd3b86f4ebbfc1f5a2815e56, type: 3}
---- !u!1 &980828458 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8957304962413023527, guid: 3f9b178ccd3b86f4ebbfc1f5a2815e56, type: 3}
-  m_PrefabInstance: {fileID: 980828457}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1041537244
 GameObject:
   m_ObjectHideFlags: 0
@@ -716,7 +711,7 @@ GameObject:
   - component: {fileID: 1041537248}
   - component: {fileID: 1041537247}
   - component: {fileID: 1041537246}
-  - component: {fileID: 1041537245}
+  - component: {fileID: 1041537250}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -724,26 +719,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1041537245
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1041537244}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 00ac4b2780b1e354faf46b3552b33692, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  startMenu: {fileID: 754266335}
-  exposition: {fileID: 1379105608}
-  ButtonClickAudioSource: {fileID: 372801658}
-  buttonClick: {fileID: 8300000, guid: f654c88652287481c8b45626c77a26af, type: 3}
-  bear: {fileID: 0}
-  player: {fileID: 0}
-  campfire: {fileID: 1995536520}
-  ground: {fileID: 980828458}
 --- !u!114 &1041537246
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -828,6 +803,20 @@ RectTransform:
   m_AnchoredPosition: {x: -4.2, y: 4.34}
   m_SizeDelta: {x: 16, y: 9}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1041537250
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1041537244}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b92f313f272f48d0a23297c31018e1a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ButtonClickAudioSource: {fileID: 372801658}
+  buttonClick: {fileID: 8300000, guid: f654c88652287481c8b45626c77a26af, type: 3}
 --- !u!1001 &1127921331
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1164,7 +1153,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1041537245}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: MenuHandler, Assembly-CSharp
         m_MethodName: goToGame
         m_Mode: 1
@@ -1769,9 +1758,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1041537245}
-        m_TargetAssemblyTypeName: MenuHandler, Assembly-CSharp
-        m_MethodName: turnOnExposition
+      - m_Target: {fileID: 1041537250}
+        m_TargetAssemblyTypeName: victorySceneScript, Assembly-CSharp
+        m_MethodName: goToGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1909,11 +1898,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f0511ae4a8ab046deab5e4f8a28764eb, type: 3}
---- !u!1 &1995536520 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 9097367576942584652, guid: f0511ae4a8ab046deab5e4f8a28764eb, type: 3}
-  m_PrefabInstance: {fileID: 1995536519}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2078972800
 GameObject:
   m_ObjectHideFlags: 0

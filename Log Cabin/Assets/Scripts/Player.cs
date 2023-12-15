@@ -20,7 +20,7 @@ public class Player : MonoBehaviour
 
     public int woodCount = 0;
 
-    public TextMeshProUGUI pickUpText;
+    public GameObject pickUpPanel;
     
     public GameObject WoodSpawner;
     public List<UnityEngine.Collider> overlappingColliders = new List<UnityEngine.Collider>();
@@ -49,7 +49,7 @@ public class Player : MonoBehaviour
     void Start(){
         Rigidbody rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
-        pickUpText.enabled = false;
+        pickUpPanel.SetActive(false);
         woodInventory = new int[] {0,0,0,0,0};
         isWalking = false;
         footstep.SetActive(false);
@@ -124,7 +124,7 @@ public class Player : MonoBehaviour
 
                 //Debug.Log("Picked up one: " + overlappingColliders[0].gameObject.tag);
                 if (overlappingColliders[0].gameObject.tag == "Blueberry"){
-                    pickUpText.enabled = true;
+                    pickUpPanel.SetActive(true);
                     if (Input.GetKeyDown(KeyCode.Space)){
                         OtherObjectsAudioSource.clip = eatSoundClip;
                         OtherObjectsAudioSource.Play();
@@ -135,7 +135,7 @@ public class Player : MonoBehaviour
                         overlappingColliders.RemoveAt(0);
                     }
                 } else if (overlappingColliders[0].gameObject.tag == "Baneberry"){
-                    pickUpText.enabled = true;
+                    pickUpPanel.SetActive(true);
                     if (Input.GetKeyDown(KeyCode.Space)){
                         OtherObjectsAudioSource.clip = eatSoundClip;
                         OtherObjectsAudioSource.Play();
@@ -146,7 +146,7 @@ public class Player : MonoBehaviour
                         overlappingColliders.RemoveAt(0);
                     }
                 } else if (overlappingColliders[0].gameObject.tag == "LeafPile" && leafUI.leavesOn){
-                    pickUpText.enabled = true;
+                    pickUpPanel.SetActive(true);
                     if (Input.GetKeyDown(KeyCode.Space)){
                         animation_controller.SetTrigger("is_picking_up");
                         animation_controller.SetTrigger("done_picking_up");
@@ -165,7 +165,7 @@ public class Player : MonoBehaviour
             
         }
         else {
-            pickUpText.enabled = false;
+            pickUpPanel.SetActive(false);
         }
     }
 

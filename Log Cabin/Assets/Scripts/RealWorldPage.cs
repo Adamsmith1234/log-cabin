@@ -10,7 +10,7 @@ public class RealWorldPage : MonoBehaviour
 
     public GameObject levelManager;
 
-    public TextMeshProUGUI pickUpPageText;
+    public GameObject pickUpPagePanel;
 
     bool isOverlappingPlayer = false;
     public BookScript book;
@@ -21,7 +21,7 @@ public class RealWorldPage : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        pickUpPageText.enabled = false;
+        pickUpPagePanel.SetActive(false);
     }
 
     // Update is called once per frame
@@ -30,30 +30,33 @@ public class RealWorldPage : MonoBehaviour
         //Debug.Log(transform.position);
         //To account for the ground
         if (isOverlappingPlayer){
-            pickUpPageText.enabled = true;
             if (Input.GetKeyDown(KeyCode.Space)){
-                    OtherObjectsAudioSource.clip = pickUpPaperClip;
-                    OtherObjectsAudioSource.Play();
+                OtherObjectsAudioSource.clip = pickUpPaperClip;
+                OtherObjectsAudioSource.Play();
                 levelManager.GetComponent<LEVEL_MANAGER>().levelUp();
+                pickUpPagePanel.SetActive(false);
                 Destroy(gameObject);
-                pickUpPageText.enabled = false;
                 book.openBook(true);
             }
         }
-        else {
-            pickUpPageText.enabled = false;
-        }
+
         
     }
 
     private void OnCollisionEnter(Collision other)
     {
         overlappingCollisions.Add(other);
-        if (other.gameObject.tag == "Player") isOverlappingPlayer = true;
+        if (other.gameObject.tag == "Player"){
+            pickUpPagePanel.SetActive(true);
+            isOverlappingPlayer = true;
+        } 
     }
 
     private void OnCollisionExit(Collision other){
         overlappingCollisions.Remove(other);
-        if (other.gameObject.tag == "Player") isOverlappingPlayer = false;
+        if (other.gameObject.tag == "Player"){
+            pickUpPagePanel.SetActive(false);
+            isOverlappingPlayer = false;
+        } 
     }
 }
