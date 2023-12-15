@@ -26,7 +26,7 @@ public class BookScript : MonoBehaviour
 
     public GameObject [] pages;
     public int[] pagePerLevel;
-    private List<int> pageThresholds = new List<int>();
+    private List<int> pageThresholds;
 
     public int currentPageNumber = 0;
 
@@ -42,13 +42,14 @@ public class BookScript : MonoBehaviour
 
     // Start is called before the first frame update
     void Start() {
+        pageThresholds = new List<int>();
         isBookLarge = false;
         transform.position = normalBookPositionPlaceholder.transform.position;
         normalBookScale = transform.localScale;
         foreach (GameObject page in pages){
             page.SetActive(false);
         }
-        pagePerLevel.Aggregate(0, (acc, x) => {pageThresholds.Add(acc); return acc+x;});
+        pageThresholds.Add(pagePerLevel.Aggregate(0, (acc, x) => {pageThresholds.Add(acc); return acc+x;}));
         while (pageThresholds.Count < levelManager.levelCount) pageThresholds.Add(pageThresholds[pageThresholds.Count-1]);
 
         mainCamera = Camera.main;
@@ -57,6 +58,11 @@ public class BookScript : MonoBehaviour
         rightButton.gameObject.SetActive(false);
 
         pages[0].SetActive(true);
+        Debug.Log("Print");
+        //Debug.Log(pageThresholds.Count);
+        for (int i = 0; i < pageThresholds.Count; i++){
+            Debug.Log(pageThresholds[i]);
+        }
         
     }
 
