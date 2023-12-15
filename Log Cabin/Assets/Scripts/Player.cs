@@ -122,7 +122,7 @@ public class Player : MonoBehaviour
 
         if (overlappingColliders.Count > 0){
 
-                Debug.Log("Picked up one: " + overlappingColliders[0].gameObject.tag);
+                //Debug.Log("Picked up one: " + overlappingColliders[0].gameObject.tag);
                 if (overlappingColliders[0].gameObject.tag == "Blueberry"){
                     pickUpText.enabled = true;
                     if (Input.GetKeyDown(KeyCode.Space)){

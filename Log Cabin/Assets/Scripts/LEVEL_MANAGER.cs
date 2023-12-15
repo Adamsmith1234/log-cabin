@@ -5,14 +5,16 @@ using UnityEngine;
 public class LEVEL_MANAGER : MonoBehaviour
 {
 
-    public int levelCount = 4;
+    public int levelCount = 5;
 
     public GameObject book;
     public enum levels { // ADD NEW VALUES WHEN ADDING NEW LEVELS
         STARTER,
         NEEDS_HEAT,
         NEEDS_FOOD,
-        NEEDS_BEAR
+        NEEDS_BEAR,
+
+        NEEDS_RESCUE
     }
       // INCREMENT WHEN ADDING NEW LEVELS
     public levels currentLevel = levels.STARTER;
