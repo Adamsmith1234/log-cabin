@@ -183,7 +183,7 @@ public class Player : MonoBehaviour
             other.gameObject.GetComponent<Animator>().SetTrigger("Take Off");
             Camera.main.enabled = false;
             other.gameObject.GetComponent<HeliScript>().cam.enabled = true;
-            Destroy(gameObject);
+            gameObject.SetActive(false);
         }
         if (other.gameObject.tag == "CampFire"){
             isNextToFire = true;
