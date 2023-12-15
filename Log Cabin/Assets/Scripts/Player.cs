@@ -27,6 +27,7 @@ public class Player : MonoBehaviour
     public GameObject fireUI;
 
     public GameObject hungerUI;
+    public LeafScript leafUI;
 
     public GameObject LevelManager;
 
@@ -60,16 +61,13 @@ public class Player : MonoBehaviour
         // Get input from the player
         float verticalInput = Input.GetAxis("Vertical");
         float horizontalInput = Input.GetAxis("Horizontal");
-        //float turn = horizontalInput * turnSpeed * Time.deltaTime;
 
         MovePlayerHandler();
         pickUpHandler();
         footstepSoundHandler();
 
         Rigidbody rb = GetComponent<Rigidbody>();
-        //rb.MovePosition(transform.forward * speed * Time.deltaTime * verticalInput);
         rb.MovePosition(transform.forward * Time.deltaTime * speed * verticalInput + transform.position);
-        //transform.Rotate(0, turn, 0);
 
         float mouseX = turnSpeed * Input.GetAxis("Mouse X") * Time.deltaTime;
         float mouseY = turnSpeed/4 * Input.GetAxis("Mouse Y") * Time.deltaTime;
@@ -134,8 +132,7 @@ public class Player : MonoBehaviour
                         Destroy(overlappingColliders[0].gameObject);
                         overlappingColliders.RemoveAt(0);
                     }
-                }
-                else if (overlappingColliders[0].gameObject.tag == "Baneberry"){
+                } else if (overlappingColliders[0].gameObject.tag == "Baneberry"){
                     pickUpText.enabled = true;
                     if (Input.GetKeyDown(KeyCode.Space)){
                         OtherObjectsAudioSource.clip = eatSoundClip;
@@ -146,8 +143,16 @@ public class Player : MonoBehaviour
                         Destroy(overlappingColliders[0].gameObject);
                         overlappingColliders.RemoveAt(0);
                     }
-                } 
-                else if (overlappingColliders[0].gameObject.GetComponent<WoodPickup>() != null) {
+                } else if (overlappingColliders[0].gameObject.tag == "LeafPile"){
+                    pickUpText.enabled = true;
+                    if (Input.GetKeyDown(KeyCode.Space)){
+                        animation_controller.SetTrigger("is_picking_up");
+                        animation_controller.SetTrigger("done_picking_up");
+                        leafUI.pickUpLeaf();
+                        Destroy(overlappingColliders[0].gameObject);
+                        overlappingColliders.RemoveAt(0);
+                    }
+                } else if (overlappingColliders[0].gameObject.GetComponent<WoodPickup>() != null) {
                     WoodSpawner.GetComponent<WoodSpawnHandler>().restorePoint(overlappingColliders[0].gameObject.GetComponent<WoodPickup>());
                     woodInventory[(int) overlappingColliders[0].gameObject.GetComponent<WoodPickup>().type] += 1;
                     fireUI.GetComponent<FireScript>().pickUpFuel(overlappingColliders[0].gameObject.GetComponent<WoodPickup>().type);

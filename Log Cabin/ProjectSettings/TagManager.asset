@@ -16,6 +16,7 @@ TagManager:
   - Book
   - Page
   - CampFire
+  - LeafPile
   layers:
   - Default
   - TransparentFX

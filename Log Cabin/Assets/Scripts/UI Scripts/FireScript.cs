@@ -55,6 +55,8 @@ public class FireScript : MonoBehaviour
 
     public AnimationCurve fireSoundCurve;
 
+    public LeafScript leafMeter;
+
     public void updateSystem(float deltaTime) {
         //Debug.Log(fireSize);
         if (Input.GetKeyDown(KeyCode.Y) && player.GetComponent<Player>().woodInventory[(int) fuels.TINDER] > 0) addFuel(fuels.TINDER);
