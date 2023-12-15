@@ -72,7 +72,7 @@ public class Player : MonoBehaviour
         //transform.Rotate(0, turn, 0);
 
         float mouseX = turnSpeed * Input.GetAxis("Mouse X") * Time.deltaTime;
-        float mouseY = turnSpeed/2 * Input.GetAxis("Mouse Y") * Time.deltaTime;
+        float mouseY = turnSpeed/4 * Input.GetAxis("Mouse Y") * Time.deltaTime;
 
         // Rotate the player based on the mouse input
         if (!book.isBookLarge) {

@@ -36,7 +36,7 @@ public class Bear : MonoBehaviour
 
         adjustedCavePosition[0] -= 3;
         adjustedCavePosition[1] += 2;
-        adjustedCavePosition[2] += 11;
+        adjustedCavePosition[2] += 13;
 
         Vector3 dirToCave = adjustedCavePosition - transform.position;
 
