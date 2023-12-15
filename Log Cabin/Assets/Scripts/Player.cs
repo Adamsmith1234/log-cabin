@@ -5,6 +5,8 @@ using TMPro;
 using System.Numerics;
 using UnityEngine.UI;
 using UnityEditor;
+using Unity.VisualScripting;
+using UnityEditor.UI;
 
 public class Player : MonoBehaviour
 {
@@ -143,7 +145,7 @@ public class Player : MonoBehaviour
                         Destroy(overlappingColliders[0].gameObject);
                         overlappingColliders.RemoveAt(0);
                     }
-                } else if (overlappingColliders[0].gameObject.tag == "LeafPile"){
+                } else if (overlappingColliders[0].gameObject.tag == "LeafPile" && leafUI.leavesOn){
                     pickUpText.enabled = true;
                     if (Input.GetKeyDown(KeyCode.Space)){
                         animation_controller.SetTrigger("is_picking_up");
@@ -177,6 +179,12 @@ public class Player : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         //Debug.Log("ENTERING");
+        if (other.gameObject.tag == "Helicopter") {
+            other.gameObject.GetComponent<Animator>().SetTrigger("Take Off");
+            Camera.main.enabled = false;
+            other.gameObject.GetComponent<HeliScript>().cam.enabled = true;
+            Destroy(gameObject);
+        }
         if (other.gameObject.tag == "CampFire"){
             isNextToFire = true;
         }

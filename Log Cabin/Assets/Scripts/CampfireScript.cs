@@ -20,6 +20,8 @@ public class CampfireScript : MonoBehaviour
     public Component[] particleSystems;
 
     public TextMeshProUGUI fireSizeText;
+    private bool smokey = false;
+    public Animator helicopter;
 
 
     // Start is called before the first frame update
@@ -60,6 +62,7 @@ public class CampfireScript : MonoBehaviour
         FlamesMain.startLifetime = flameHeight(scaledHeat,fireSize);
         redFlamesMain.startLifetime = redFlameHeight(scaledHeat,fireSize);
         smokeMain.startLifetime = smokeHeight(scaledHeat,fireSize);
+        if (smokey) smokeMain.startSize = Random.Range(.5f,1.5f);
     }
 
     float flameHeight(float scaledHeat, float fireSize) {
@@ -69,7 +72,15 @@ public class CampfireScript : MonoBehaviour
         return Random.Range(scaledHeat-.7f,scaledHeat-.3f);
     }
     float smokeHeight(float scaledHeat, float fireSize) {
-        float inverseScaledHeat = 1/scaledHeat;
-        return Random.Range(inverseScaledHeat-.2f,inverseScaledHeat+.2f);
+        if (!smokey) {
+            float inverseScaledHeat = 1/scaledHeat;
+            return Random.Range(inverseScaledHeat-.2f,inverseScaledHeat+.2f);
+        } else return Random.Range(10f,12f);
+    }
+
+    public void smokeySmokey() {
+        smokey = true;
+        helicopter.gameObject.SetActive(true);
+        helicopter.SetTrigger("Land");
     }
 }

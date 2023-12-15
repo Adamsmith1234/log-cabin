@@ -64,6 +64,7 @@ public class FireScript : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.I) && player.GetComponent<Player>().woodInventory[(int) fuels.SMALL_STICKS] > 0) addFuel(fuels.SMALL_STICKS);
         if (Input.GetKeyDown(KeyCode.O) && player.GetComponent<Player>().woodInventory[(int) fuels.LARGE_STICKS] > 0) addFuel(fuels.LARGE_STICKS);
         if (Input.GetKeyDown(KeyCode.P) && player.GetComponent<Player>().woodInventory[(int) fuels.LOGS] > 0) addFuel(fuels.LOGS);
+        if (Input.GetKeyDown(KeyCode.L) && leafMeter.full) addLeaves();
         if (Input.GetKeyDown(KeyCode.M) && !isLit && matches > 0) {
             woodAudioSource.clip = matchSound;
             woodAudioSource.Play();
@@ -99,6 +100,16 @@ public class FireScript : MonoBehaviour
         player.GetComponent<Player>().woodInventory[(int) fuelType] -= 1;
         woodInventoryUI[(int) fuelType].GetComponent<Text>().text = player.GetComponent<Player>().woodInventory[(int) fuelType].ToString();
     }
+
+    public void addLeaves() {
+        Debug.Log("Boop");
+        if (heat > heatThresholds[4]) {
+            Debug.Log("Beep");
+            campfire.GetComponent<CampfireScript>().smokeySmokey();
+            leafMeter.clearLeaves();
+        }
+    }
+
     public void pickUpFuel(fuels fuelType) {
         woodAudioSource.clip = woodSounds[(int) fuelType];
         woodAudioSource.Play();
