@@ -30,4 +30,5 @@ public class LeafScript : MonoBehaviour
         leavesPickedUp = 0;
         leafMeter.percentFilled = 0f;
     }
+
 }

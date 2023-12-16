@@ -6,7 +6,6 @@ using System.Numerics;
 using UnityEngine.UI;
 using UnityEditor;
 using Unity.VisualScripting;
-using UnityEditor.UI;
 
 public class Player : MonoBehaviour
 {
@@ -45,6 +44,8 @@ public class Player : MonoBehaviour
     
     public AudioClip eatSoundClip;
 
+    public GameObject pauseStuff;
+
     // Start is called before the first frame update
     void Start(){
         Rigidbody rb = GetComponent<Rigidbody>();
@@ -80,6 +81,13 @@ public class Player : MonoBehaviour
             playerCam.transform.Rotate(-mouseY,0,0);
         }
     
+        if (Input.GetKeyDown(KeyCode.Escape)) {
+            if (pauseStuff.GetComponent<pauseMenu>().paused) {
+                pauseStuff.GetComponent<pauseMenu>().unPause();
+            } else {
+                pauseStuff.GetComponent<pauseMenu>().pause();
+            }
+        }
 
     }
 
@@ -169,11 +177,9 @@ public class Player : MonoBehaviour
         }
     }
 
-    string[] woodUIKeys = new string[] {"Y: ","U: ","I: ","O: ","P: "};
-
     public void updateWoodUI() {
         for (int x = 0; x < 5; x++) {
-            fireUI.GetComponent<FireScript>().woodInventoryUI[x].GetComponent<Text>().text = woodUIKeys[x] + woodInventory[x].ToString();
+            fireUI.GetComponent<FireScript>().woodInventoryUI[x].GetComponent<Text>().text = woodInventory[x].ToString();
         }
     }
 

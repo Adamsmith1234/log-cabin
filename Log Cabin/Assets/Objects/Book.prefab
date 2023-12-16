@@ -2704,26 +2704,26 @@ MonoBehaviour:
     mess!
 
 
-    <mark=#ffff0033>You''ll want to build your fire before you light
-    it, otherwise it''ll just burn up the first thing in it and die.</mark>
+    <mark=#ffff0033>Use the buttons labeled in the top right to place
+    wood in the fire before lighting it. Once it''s lit you can continue to add more
+    wood.</mark>
 
 
-    In
-    general, you''ll want to:
+    In general, you''ll want to:
 
-    - Start with your smaller fuels to build up heat
+    - Start with your smaller
+    fuels to build up heat
 
-    -
-    Gradually put in your larger fuels, these will burn for longer.
-
-
-    Whatever
-    you do, don''t put everything in at once, or else you''ll smother it.
+    - Gradually put in your larger fuels, these will
+    burn for longer.
 
 
-    Lastly,
-    <mark=#ffff0033>conserve your matches! If you use them all, you''re as good as
-    dead!</mark>'
+    If you don''t prepare with enough small pieces, you won''t
+    be able to light the large ones.
+
+
+    Lastly, <mark=#ffff0033>conserve your
+    matches! If you use them all, you''re as good as dead!</mark>'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 5302535af1044152a457ed104f1f4b91, type: 2}
   m_sharedMaterial: {fileID: 2164040, guid: 5302535af1044152a457ed104f1f4b91, type: 2}
@@ -3967,13 +3967,29 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "The final piece to surviving the wilderness while stranded is.... leaves!\n\nWhen
+  m_text: 'The final piece to surviving the wilderness while stranded is.... leaves!
+
+
+    When
     you create a fire large enough, adding leaves to it will create a large enough
-    cloud of smoke to be seen from miles away!\n\nLeaves are composed of hyrdocarbons,
-    which cause it to burn at a lower rate, producing smoke in the process.\n\nYou
-    should look for a ton of leaves and store them for the precise moement when your
-    fire is at its largest. \n\nIf you can get your fire to this point, you're in
-    the endgame!\n\n"
+    cloud of smoke to be seen from miles away!
+
+
+    Leaves are often are wet (even
+    if they don''t feel like it), which cause them to burn at a slower rate, producing
+    more smoke in the process.
+
+
+    You should gather a ton of leaves and store
+    them for the precise moement when your fire is at its largest. <mark=#ffff0033>(Fill
+    the bar, then use the button to place)</mark>
+
+
+    If you can get your fire
+    to this point, you''re in the endgame!
+
+
+'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 5302535af1044152a457ed104f1f4b91, type: 2}
   m_sharedMaterial: {fileID: 2164040, guid: 5302535af1044152a457ed104f1f4b91, type: 2}

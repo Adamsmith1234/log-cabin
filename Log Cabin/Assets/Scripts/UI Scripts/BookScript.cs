@@ -39,6 +39,7 @@ public class BookScript : MonoBehaviour
     public AudioSource OtherObjectsAudioSource;
 
     public AudioClip turnPageClip, clickOnBookClip;
+    public GameObject pauseStuff;
 
     // Start is called before the first frame update
     void Start() {
@@ -69,7 +70,7 @@ public class BookScript : MonoBehaviour
     // Update is called once per frame
     void Update() {
 
-        if (Input.GetKeyDown(KeyCode.Mouse1) && !isBookLarge) {
+        if (!pauseStuff.GetComponent<pauseMenu>().paused && Input.GetKeyDown(KeyCode.Mouse1) && !isBookLarge) {
             openBook();
         }
         else if (Input.GetKeyDown(KeyCode.Mouse1) && isBookLarge && !isFlipping) {

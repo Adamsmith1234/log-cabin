@@ -7,6 +7,6 @@ public class HeliScript : MonoBehaviour
 {
     public Camera cam;
     public void victory() {
-        SceneManager.LoadScene(3);
+        SceneManager.LoadScene("Victory!");
     }
 }

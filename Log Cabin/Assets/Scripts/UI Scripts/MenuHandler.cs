@@ -26,6 +26,6 @@ public class MenuHandler : MonoBehaviour
     public void goToGame() {
         ButtonClickAudioSource.clip = buttonClick;
         ButtonClickAudioSource.Play();
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene("CurrentMain");
     }
 }
