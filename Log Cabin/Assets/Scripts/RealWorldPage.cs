@@ -37,6 +37,7 @@ public class RealWorldPage : MonoBehaviour
                 pickUpPagePanel.SetActive(false);
                 Destroy(gameObject);
                 book.openBook(true);
+                Cursor.lockState = CursorLockMode.Confined;
             }
         }
 

@@ -1278,6 +1278,7 @@ MonoBehaviour:
   OtherObjectsAudioSource: {fileID: 0}
   turnPageClip: {fileID: 0}
   clickOnBookClip: {fileID: 0}
+  pauseStuff: {fileID: 0}
 --- !u!1 &3371603925248114267
 GameObject:
   m_ObjectHideFlags: 0
@@ -4128,7 +4129,8 @@ MonoBehaviour:
     joy, while others will fill it with poison.\n\nHere are some descriptions of
     the notable berries:\n\nBlueberry: \n- Blue color, found on bushes, <mark=#ffff0033>safe
     to eat</mark>\n\nJuniper:\n- Violet color, found on trees, <mark=#ffff0033>unsafe
-    to eat</mark>\n\nBlack Nightshade:\n- Dark blue color, found on bushes, <mark=#ffff0033>deadly</mark>\n\n"
+    to eat</mark>\n\nAlso, it's recommended you don't forage at night! It's harder
+    to see!\n"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 5302535af1044152a457ed104f1f4b91, type: 2}
   m_sharedMaterial: {fileID: 2164040, guid: 5302535af1044152a457ed104f1f4b91, type: 2}

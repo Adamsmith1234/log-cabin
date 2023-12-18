@@ -14,7 +14,7 @@ public class Player : MonoBehaviour
 
     public Animator book_animation_controller;
 
-    public float speed = 5f; 
+    public float speed = 7f; 
     public float turnSpeed = 500f;
 
     public int woodCount = 0;
@@ -56,6 +56,8 @@ public class Player : MonoBehaviour
         footstep.SetActive(false);
         Cursor.visible = false;
         isNextToFire = false;
+        Cursor.lockState = CursorLockMode.Locked;
+        Application.targetFrameRate = 60;
     }
 
     // Update is called once per frame
@@ -72,8 +74,8 @@ public class Player : MonoBehaviour
         Rigidbody rb = GetComponent<Rigidbody>();
         rb.MovePosition(transform.forward * Time.deltaTime * speed * verticalInput + transform.position);
 
-        float mouseX = turnSpeed * Input.GetAxis("Mouse X") * Time.deltaTime;
-        float mouseY = turnSpeed/4 * Input.GetAxis("Mouse Y") * Time.deltaTime;
+        float mouseX = turnSpeed/10 * Input.GetAxis("Mouse X") * Time.deltaTime;
+        float mouseY = turnSpeed/50 * Input.GetAxis("Mouse Y") * Time.deltaTime;
 
         // Rotate the player based on the mouse input
         if (!book.isBookLarge) {

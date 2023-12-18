@@ -71,9 +71,11 @@ public class BookScript : MonoBehaviour
     void Update() {
 
         if (!pauseStuff.GetComponent<pauseMenu>().paused && Input.GetKeyDown(KeyCode.Mouse1) && !isBookLarge) {
+            Cursor.lockState = CursorLockMode.Confined;
             openBook();
         }
         else if (Input.GetKeyDown(KeyCode.Mouse1) && isBookLarge && !isFlipping) {
+            Cursor.lockState = CursorLockMode.Locked;
             closeBook();
         }
             /*UnityEngine.Vector3 mousePosition = Input.mousePosition;

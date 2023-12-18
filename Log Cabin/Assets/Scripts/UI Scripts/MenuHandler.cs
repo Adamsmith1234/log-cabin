@@ -13,6 +13,10 @@ public class MenuHandler : MonoBehaviour
     public AudioClip buttonClick;
 
     public GameObject bear, player, campfire, ground;
+
+    void Start() {
+        Cursor.lockState = CursorLockMode.Confined;
+    }
     public void turnOnExposition() {
         startMenu.SetActive(false);
         exposition.SetActive(true);
