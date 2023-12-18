@@ -46,6 +46,10 @@ public class Player : MonoBehaviour
 
     public GameObject pauseStuff;
 
+    public Slider sensitivitySliderX;
+
+    public Slider sensitivitySliderY;
+
     // Start is called before the first frame update
     void Start(){
         Rigidbody rb = GetComponent<Rigidbody>();
@@ -58,6 +62,8 @@ public class Player : MonoBehaviour
         isNextToFire = false;
         Cursor.lockState = CursorLockMode.Locked;
         Application.targetFrameRate = 60;
+        sensitivitySliderX.value = PlayerPrefs.GetFloat("Sensitivity-X");
+        sensitivitySliderY.value = PlayerPrefs.GetFloat("Sensitivity-Y");
     }
 
     // Update is called once per frame
@@ -66,6 +72,8 @@ public class Player : MonoBehaviour
         // Get input from the player
         float verticalInput = Input.GetAxis("Vertical");
         float horizontalInput = Input.GetAxis("Horizontal");
+        PlayerPrefs.SetFloat("Sensitivity-X", sensitivitySliderX.value);
+        PlayerPrefs.SetFloat("Sensitivity-Y", sensitivitySliderY.value);
 
         MovePlayerHandler();
         pickUpHandler();
@@ -74,8 +82,8 @@ public class Player : MonoBehaviour
         Rigidbody rb = GetComponent<Rigidbody>();
         rb.MovePosition(transform.forward * Time.deltaTime * speed * verticalInput + transform.position);
 
-        float mouseX = turnSpeed/10 * Input.GetAxis("Mouse X") * Time.deltaTime;
-        float mouseY = turnSpeed/50 * Input.GetAxis("Mouse Y") * Time.deltaTime;
+        float mouseX = turnSpeed/ (PlayerPrefs.GetFloat("Sensitivity-X") * -1) * Input.GetAxis("Mouse X") * Time.deltaTime;
+        float mouseY = turnSpeed/ (PlayerPrefs.GetFloat("Sensitivity-Y") * -1) * Input.GetAxis("Mouse Y") * Time.deltaTime;
 
         // Rotate the player based on the mouse input
         if (!book.isBookLarge) {
@@ -138,8 +146,8 @@ public class Player : MonoBehaviour
                     if (Input.GetKeyDown(KeyCode.Space)){
                         OtherObjectsAudioSource.clip = eatSoundClip;
                         OtherObjectsAudioSource.Play();
-                        animation_controller.SetTrigger("is_picking_up");
-                        animation_controller.SetTrigger("done_picking_up");
+                        //animation_controller.SetTrigger("is_picking_up");
+                        //animation_controller.SetTrigger("done_picking_up");
                         hungerUI.GetComponent<HungerScript>().eatBlueberry();
                         Destroy(overlappingColliders[0].gameObject);
                         overlappingColliders.RemoveAt(0);
@@ -149,8 +157,8 @@ public class Player : MonoBehaviour
                     if (Input.GetKeyDown(KeyCode.Space)){
                         OtherObjectsAudioSource.clip = eatSoundClip;
                         OtherObjectsAudioSource.Play();
-                        animation_controller.SetTrigger("is_picking_up");
-                        animation_controller.SetTrigger("done_picking_up");
+                       //animation_controller.SetTrigger("is_picking_up");
+                        //animation_controller.SetTrigger("done_picking_up");
                         hungerUI.GetComponent<HungerScript>().eatBaneberry();
                         Destroy(overlappingColliders[0].gameObject);
                         overlappingColliders.RemoveAt(0);
@@ -158,8 +166,8 @@ public class Player : MonoBehaviour
                 } else if (overlappingColliders[0].gameObject.tag == "LeafPile" && leafUI.leavesOn){
                     pickUpPanel.SetActive(true);
                     if (Input.GetKeyDown(KeyCode.Space)){
-                        animation_controller.SetTrigger("is_picking_up");
-                        animation_controller.SetTrigger("done_picking_up");
+                        //animation_controller.SetTrigger("is_picking_up");
+                        //animation_controller.SetTrigger("done_picking_up");
                         leafUI.pickUpLeaf();
                         Destroy(overlappingColliders[0].gameObject);
                         overlappingColliders.RemoveAt(0);

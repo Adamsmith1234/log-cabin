@@ -16,6 +16,15 @@ public class MenuHandler : MonoBehaviour
 
     void Start() {
         Cursor.lockState = CursorLockMode.Confined;
+        if (!PlayerPrefs.HasKey("Sensitivity-X"))
+        {
+            PlayerPrefs.SetFloat("Sensitivity-X", -10);
+        }
+        if (!PlayerPrefs.HasKey("Sensitivity-Y"))
+        {
+            PlayerPrefs.SetFloat("Sensitivity-Y", -50);
+        }
+
     }
     public void turnOnExposition() {
         startMenu.SetActive(false);
