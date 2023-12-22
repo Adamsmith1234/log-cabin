@@ -23,7 +23,16 @@ public class LEVEL_MANAGER : MonoBehaviour
     public GameObject player;
 
     void Start(){
-        LevelUIs[2].SetActive(false);
+        if (PlayerPrefs.GetString("Mode") == "Education"){
+            LevelUIs[2].SetActive(false);
+        }
+        else {
+            levelUp();
+            levelUp();
+            levelUp();
+            levelUp();
+        }
+        
     }
     void Update() {
         //if (Input.GetKeyDown(KeyCode.H)) levelUp(); // REPLACE WITH TRIGGER FOR LEVELUP (e.g. picking up page)

@@ -17,16 +17,33 @@ public class HungerScript : MonoBehaviour
         }
     }
     public void updateSystem(float deltaTime) {
-        stomach.percentFilled -= deltaTime/130;
+        if (PlayerPrefs.GetString("Mode") == "Education"){
+            stomach.percentFilled -= deltaTime/130;
+        }
+        else {
+            stomach.percentFilled -= deltaTime/110;
+        }
+        
     }
 
     public void eatBlueberry(){
-        stomach.percentFilled += .1f;
+        if (PlayerPrefs.GetString("Mode") == "Education"){
+            stomach.percentFilled += .1f;
+        }
+        else {
+            stomach.percentFilled += .05f;
+        }
+
         Debug.Log(stomach.percentFilled);
     }
 
     public void eatBaneberry(){
-        stomach.percentFilled -= .2f;
+        if (PlayerPrefs.GetString("Mode") == "Education") {
+            stomach.percentFilled -= .2f;
+        }
+        else {
+            stomach.percentFilled -= .3f;
+        }
         Debug.Log(stomach.percentFilled);
     }
 
